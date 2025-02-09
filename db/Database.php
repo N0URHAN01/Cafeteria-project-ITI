@@ -1,17 +1,26 @@
 <?php
-require_once "db_connaction.php";
 
 class Database {
+    private $host = "localhost";
+    private $dbname = "iti_cafeteria";
+    private $username = "init0x1";
+    private $password = "init0x1";
     private $connection;
 
-    public function __construct($connection) {
-        $this->connection = $connection;
+    public function __construct() {
+        try{
+            $this->connection = new PDO("mysql:host={$this->host};dbname={$this->dbname}", $this->username, $this->password);
+        }catch (PDOException $e) {
+            error_log("Database connection error: " . $e->getMessage());
+            return null; 
+        }
     }
-
-    // Connect to the database
+    
     public function connect() {
         return $this->connection;
     }
+
+
 /*
     // Insert 
     public function insert($table, $columns, $values) {

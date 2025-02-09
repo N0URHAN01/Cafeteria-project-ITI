@@ -1,5 +1,7 @@
 <?php
-require_once "db_connaction.php"; 
+require_once "Database.php"; 
+
+$connection = new Database();
 
 function test_db_connection($connection):bool{
     try {
