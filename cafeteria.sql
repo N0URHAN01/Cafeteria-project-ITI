@@ -1,4 +1,4 @@
-- user table
+-- user table
 
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -8,7 +8,7 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-- admin table
+-- admin table
 
 CREATE TABLE admins (
     admin_id INT AUTO_INCREMENT PRIMARY KEY,
