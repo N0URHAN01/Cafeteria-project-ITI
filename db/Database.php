@@ -1,18 +1,18 @@
 <?php
-require_once "connaction.php";
+require_once "db_connaction.php";
 
 class Database {
-    private $pdo;
+    private $connection;
 
-    public function __construct($pdo) {
-        $this->pdo = $pdo;
+    public function __construct($connection) {
+        $this->connection = $connection;
     }
 
     // Connect to the database
     public function connect() {
-        return $this->pdo;
+        return $this->connection;
     }
-
+/*
     // Insert 
     public function insert($table, $columns, $values) {
         $colStr = implode(", ", $columns);
@@ -47,5 +47,6 @@ class Database {
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([$id]);
     }
-}
+*/
+    }    
 ?>
