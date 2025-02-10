@@ -1,22 +1,19 @@
 <?php
-require_once "./classes/db/Database.php"; 
 
-$connection = new Database();
-
-function test_db_connection($connection):bool{
+function test_db_connection($connection): bool {
     try {
-
-        $stmt = $connection->query("SELECT now()");
+        $pdo = $connection->connect(); 
         
-        if ($stmt) {
-            return true;
-        } else {
+
+        if (!$pdo) {
             return false;
         }
+
+        $stmt = $pdo->prepare("SELECT NOW()");
+        $stmt->execute();
+        return $stmt->fetch() ? true : false;
     } catch (PDOException $e) {
         error_log("Database connection error: " . $e->getMessage());
         return false;
     }
 }
-?>
-    
