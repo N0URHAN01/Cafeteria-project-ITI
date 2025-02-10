@@ -1,9 +1,9 @@
 <?php
 
-require_once "./classes/db/Database.php";
-require_once "./utils/password-utils.php";
+require_once __DIR__ . "/../db/Database.php";
+require_once __DIR__ . "/../../utils/password-utils.php";
 
-class auth{
+class AdminAuth{
     private $db;
 
     public function __construct() {
@@ -74,7 +74,7 @@ class auth{
 
 }
 
-$user = new auth();
-$admin = new auth();
+$user = new AdminAuth();
+$admin = new AdminAuth();
 //var_dump($admin->auth_admin("init0x1@email.com","init0x10Password"));
 //var_dump($user->create_user("init0x1","init0x1Password","init0x1@email.com",1,"ext","null.png"));
