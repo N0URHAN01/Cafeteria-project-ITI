@@ -15,3 +15,7 @@ function hash_password($plain_text_password, $user_email):string{
     
 }
 
+
+$email ="init0x1@email.com";
+$password = "init0x1Password";
+//echo(hash_password($password,$email));
