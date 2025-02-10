@@ -6,7 +6,7 @@ CREATE TABLE users (
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     profile_image VARCHAR(255),
-    room_number INT,                  
+    room_id INT,                  
     ext VARCHAR(50),              
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (room_id) REFERENCES rooms(room_id) ON DELETE SET NULL
@@ -29,14 +29,14 @@ CREATE TABLE admins (
 
 CREATE TABLE rooms (
     room_id INT AUTO_INCREMENT PRIMARY KEY,
-    room_number int NOT NULL
+    room_number int NOT NULL UNIQUE
 );
 
 -- categories table
 
 CREATE TABLE categories (
     category_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
+    name VARCHAR(255) NOT NULL UNIQUE
 );
 
 -- products table
