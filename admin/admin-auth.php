@@ -1,6 +1,6 @@
 <?php
 
-require_once "./db/Database.php";
+require_once "./includes/Database.php";
 require_once "./utils/password-utils.php";
 
 class auth{
@@ -43,6 +43,7 @@ class auth{
             return false;
         }
     }
+
 
 }
 
