@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__ ."/../classes/admin/admin-auth.php";
-require_once __DIR__ . "/../utils/validator.php";
+require_once __DIR__ ."/../../classes/admin/admin-auth.php";
+require_once __DIR__ . "/../../utils/validator.php";
 
 $auth = new AdminAuth();
 $admin_login_errors = [];
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION["is_admin"] = true;
             $_SESSION["admin_id"] = $admin_id;
             
-            header("Location: ../views/admin/admin_dashboard.php");
+            header("Location: ../../views/admin/admin_dashboard.php");
             exit;
         } else {
             
@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $errors_json = urlencode(json_encode($admin_login_errors));
             $old_data_json = urlencode(json_encode($post_data["data"]));
             
-            header("Location: ../views/admin/admin_login.php?errors={$errors_json}&old_data={$old_data_json}");
+            header("Location: ../../views/admin/login.php?errors={$errors_json}&old_data={$old_data_json}");
             exit;
         }
     }
