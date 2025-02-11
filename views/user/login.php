@@ -86,7 +86,10 @@
     <div class="login-container">
         <img src="loginimg.jpeg" alt="Coffee">
         <h2>Sign In</h2>
-        <form method="POST" action="/controllers/adminController.php">
+        <?php if (isset($_GET['success'])): ?>
+        <p style="color: green;"><?= htmlspecialchars($_GET['success']) ?></p>
+    <?php endif; ?>
+    <form method="POST" action="../../controllers/user/userAuthController.php">
             <div class="input-group">
                 <label>Email Address:</label>
                 <input type="email" name="email" placeholder="Enter email" required>
