@@ -86,7 +86,7 @@
     <div class="login-container">
         <img src="loginimg.jpeg" alt="Coffee">
         <h2>Sign In</h2>
-        <form method="POST" action="/controllers/adminController.php">
+        <form method="POST" action="/controllers/admin/adminAuthController.php">
             <div class="input-group">
                 <label>Email Address:</label>
                 <input type="email" name="email" placeholder="Enter email" required>
