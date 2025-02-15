@@ -3,8 +3,8 @@
 class Database {
     private $host = "localhost";
     private $dbname = "iti_cafeteria";
-    private $username = "init0x1";
-    private $password = "init0x1";
+    private $username = "nourphp";
+    private $password = "php1234";
     private $connection;
 
     public function __construct() {
