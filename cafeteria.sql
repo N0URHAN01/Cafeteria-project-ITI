@@ -46,6 +46,7 @@ CREATE TABLE products (
     price DECIMAL(10,2) NOT NULL,
     category_id INT,
     image_url VARCHAR(255),
+    stock_quantity INT DEFAULT 0
     status ENUM('available', 'out of stock') NOT NULL DEFAULT 'available',
     FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE SET NULL
 );
@@ -54,10 +55,12 @@ CREATE TABLE products (
 CREATE TABLE orders (
     order_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
+    room_id INT,
     total_price DECIMAL(10,2) NOT NULL,
     status ENUM('processing', 'out for delivery', 'done') DEFAULT 'processing',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (room_id) REFERENCES rooms(room_id) ON DELETE SET NULL
     );
 
 -- orderd_products table
@@ -67,6 +70,7 @@ CREATE TABLE ordered_products (
     product_id INT,
     quantity INT NOT NULL,
     price DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE RESTRICT
     );
