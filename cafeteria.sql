@@ -46,7 +46,7 @@ CREATE TABLE products (
     price DECIMAL(10,2) NOT NULL,
     category_id INT,
     image_url VARCHAR(255),
-    stock_quantity INT DEFAULT 0
+    stock_quantity INT DEFAULT 0,
     status ENUM('available', 'out of stock') NOT NULL DEFAULT 'available',
     FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE SET NULL
 );
