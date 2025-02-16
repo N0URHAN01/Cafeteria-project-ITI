@@ -109,7 +109,9 @@ $all_rooms = $room->get_all_rooms();
     background: #f4f4f4;
     cursor: pointer;
 }
-
+.admin-header .dropdown-menu  li a:hover {
+  color: rgb(75, 24, 18) !important;
+}
     </style>
         <script>
 
@@ -121,24 +123,29 @@ function toggleDropdown() {
     </script>
 </head>
 <body>
-<div class="admin-header  d-flex flex-row">
-    <ul class="navbar-nav w-100 d-flex flex-row mx-2">
-    <li class="nav-item px-2  "><a class="nav-link" href="admin_dashboard.php">Home</a></li>
+<nav class="navbar navbar-expand-lg " style="background-color:#5c3d2e">
+  <a class="navbar-brand" href="#" style="display:inline-block; width:50px; height:50px"><img style="display:inline-block; width:100%; height:100%" src="../../static_images/logo.png" alt=""></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-      <li class="nav-item px-2  ">
+  <div class="collapse navbar-collapse admin-header " id="navbarSupportedContent">
+    <ul class="navbar-nav w-100  mx-2">
+      <li class="nav-item px-2  active ">
+        <a class="nav-link" href="admin_dashboard.php">Home
+        </a>
+     </li>
+     <li class="nav-item px-2  ">
         <a class="nav-link" href="products.php">Products</a>
-      </li>
-      <li class="nav-item px-2  ">
+     </li>
+     <li class="nav-item px-2  ">
         <a class="nav-link" href="manual_order.php">Manual Order</a>
-      </li>
-      <li class="nav-item px-2  "><a class="nav-link" href="checks.php">Checks</a></li>
-      <li class="nav-item px-2  "><a class="nav-link" href="users.php">Users</a></li>
+     </li>
+     <li class="nav-item px-2  "><a class="nav-link" href="checks.php">Checks</a></li>
+     <li class="nav-item px-2  "><a class="nav-link" href="users.php">Users</a></li>
+     <li class="nav-item px-2  "><a class="nav-link" href="Categories.php">Categories</a></li>
 
-
-
-
-    </ul>
-      <div class=" admin-dropdown ml-auto">
+      <li class=" admin-dropdown ml-md-auto">
         <div class="admin-info" onclick="toggleDropdown()">
             <img src="../../uploads/<?= $admin['profile_image']; ?>" alt="Admin" class="profile-img" />
             <span><?= htmlspecialchars($admin['name']); ?></span>
@@ -146,9 +153,10 @@ function toggleDropdown() {
         <ul class="dropdown-menu" id="dropdownMenu">
             <li><a href="../../controllers/admin/logoutController.php">Logout</a></li>
         </ul>
-      </div>
-
-    </div>
+     </li>
+    </ul>
+  </div>
+</nav>
 
 <h2>Add New User</h2>
 <form method="POST" action="../../controllers/admin/addUserController.php" enctype="multipart/form-data">
@@ -187,6 +195,9 @@ function toggleDropdown() {
     
     <button type="submit">Add User</button>
 </form>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 </body>
 </html>
