@@ -2,14 +2,13 @@
 session_start();
 require_once __DIR__ . "/../../classes/db/Database.php";
 require_once __DIR__ . "/../../classes/admin/room.php";
+require_once __DIR__ . "/../../middleware/authMiddleware.php";
+
 
 $room = new Room();
 
-// Check if admin is logged in
-if (!isset($_SESSION["is_admin"]) || !isset($_SESSION["admin_id"])) {
-    header("Location: login.php");
-    exit;
-}
+// Check if admin is logged in using auth middleware 
+requireAuthAdmin();
 
 $db = new Database();
 $conn = $db->connect();
