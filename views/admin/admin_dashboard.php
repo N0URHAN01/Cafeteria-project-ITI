@@ -1,6 +1,9 @@
 <?php
 session_start();
 require_once __DIR__ . "/../../classes/db/Database.php";
+require_once __DIR__ . "/../../classes/admin/room.php";
+
+$room = new Room();
 
 // Check if admin is logged in
 if (!isset($_SESSION["is_admin"]) || !isset($_SESSION["admin_id"])) {
@@ -16,6 +19,11 @@ $admin_id = $_SESSION["admin_id"];
 $stmt = $conn->prepare("SELECT name, profile_image FROM admins WHERE admin_id = :admin_id");
 $stmt->execute(['admin_id' => $admin_id]);
 $admin = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// get rooms to let admin select room for the user 
+
+$all_rooms = $room->get_all_rooms();
+
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +64,7 @@ $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 
 <div class="admin-header">
     <div class="admin-info">
-        <img src="../../uploads/<?= $admin['profile_image']; ?>" alt="Admin">
+        <img src="../../uploads/admins<?= htmlspecialchars($admin['profile_image']); ?>" alt="Admin">
         <span>Welcome, <?= htmlspecialchars($admin['name']); ?></span>
     </div>
     <form method="POST" action="../../controllers/admin/logout.php">
@@ -75,13 +83,29 @@ $admin = $stmt->fetch(PDO::FETCH_ASSOC);
     <label>Password:</label>
     <input type="password" name="password" required>
     
-   
+    <label>Confirm Password:</label>
+    <input type="password" name="confirmPassword" required>
     
     <label>Extension:</label>
     <input type="text" name="ext">
     
     <label>Profile Image:</label>
     <input type="file" name="profile_image">
+
+    <!-- Room Selection -->
+    <label>Room:</label>
+    <select name="room_id" required>
+        <option value="">Select a Room</option>
+        <?php if (!empty($all_rooms)): ?>
+            <?php foreach ($all_rooms as $room): ?>
+                <option value="<?= htmlspecialchars($room['room_id']); ?>">
+                    <?= htmlspecialchars($room['room_number']); ?>
+                </option>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <option value="">No rooms available</option>
+        <?php endif; ?>
+    </select>
     
     <button type="submit">Add User</button>
 </form>
