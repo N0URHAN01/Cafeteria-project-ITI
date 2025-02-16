@@ -1,9 +1,10 @@
 <?php
+require_once __DIR__ . "/../../middleware/authMiddleware.php";
+
 session_start();
-if (!isset($_SESSION["user_id"])) {
-    header("Location: login.php");
-    exit;
-}
+
+requireAuthUser();
+
 ?>
 
 <!DOCTYPE html>
