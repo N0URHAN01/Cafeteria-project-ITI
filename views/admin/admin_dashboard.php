@@ -32,45 +32,124 @@ $all_rooms = $room->get_all_rooms();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+     <!-- fevicon -->
+     <link rel="icon" href="images/fevicon.png" type="image/gif" />
+    <!--  -->
+    <link href="../../css/adminNavbar.css"   rel="stylesheet" />
+
     <style>
-        .admin-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px;
-            background: #5c3d2e;
-            color: white;
-        }
-        .admin-info {
-            display: flex;
-            align-items: center;
-        }
-        .admin-info img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-        .logout-btn {
-            background: red;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            cursor: pointer;
-        }
+      body {
+        color: #566787;
+        background: linear-gradient(135deg, #e3c6a8, #b08968);
+        font-family: "Roboto", sans-serif;
+      }
+      .admin-dropdown {
+    position: relative;
+}
+
+.admin-info {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    border-radius: 25px;
+}
+
+.profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 2px solid #b08968;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: #fff;
+    border-radius: 8px;
+    list-style: none;
+    padding: 10px 0;
+    width: 70px;
+    text-align: center;
+    min-width:auto !important;
+}
+
+.dropdown-menu li {
+    padding: 5px;
+}
+
+.dropdown-menu li a {
+    text-decoration: none;
+    color: #b08968;
+    font-weight: bold;
+    display:inline-block;
+    width: 100%;
+    text-align:left;
+}
+
+.dropdown-menu li:hover {
+    background: #f4f4f4;
+    cursor: pointer;
+}
+
     </style>
+        <script>
+
+function toggleDropdown() {
+    var dropdown = document.getElementById("dropdownMenu");
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+}
+
+    </script>
 </head>
 <body>
+<div class="admin-header  d-flex flex-row">
+    <ul class="navbar-nav w-100 d-flex flex-row mx-2">
+    <li class="nav-item px-2  "><a class="nav-link" href="admin_dashboard.php">Home</a></li>
 
-<div class="admin-header">
-    <div class="admin-info">
-        <img src="../../uploads/admins<?= htmlspecialchars($admin['profile_image']); ?>" alt="Admin">
-        <span>Welcome, <?= htmlspecialchars($admin['name']); ?></span>
+      <li class="nav-item px-2  ">
+        <a class="nav-link" href="products.php">Products</a>
+      </li>
+      <li class="nav-item px-2  ">
+        <a class="nav-link" href="manual_order.php">Manual Order</a>
+      </li>
+      <li class="nav-item px-2  "><a class="nav-link" href="checks.php">Checks</a></li>
+      <li class="nav-item px-2  "><a class="nav-link" href="users.php">Users</a></li>
+
+
+
+
+    </ul>
+      <div class=" admin-dropdown ml-auto">
+        <div class="admin-info" onclick="toggleDropdown()">
+            <img src="../../uploads/<?= $admin['profile_image']; ?>" alt="Admin" class="profile-img" />
+            <span><?= htmlspecialchars($admin['name']); ?></span>
+        </div>
+        <ul class="dropdown-menu" id="dropdownMenu">
+            <li><a href="../../controllers/admin/logoutController.php">Logout</a></li>
+        </ul>
+      </div>
+
     </div>
-    <form method="POST" action="../../controllers/admin/logout.php">
-        <button type="submit" class="logout-btn">Logout</button>
-    </form>
-</div>
 
 <h2>Add New User</h2>
 <form method="POST" action="../../controllers/admin/addUserController.php" enctype="multipart/form-data">
