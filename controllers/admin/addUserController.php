@@ -1,58 +1,76 @@
 <?php
-require_once __DIR__ . "/../../classes/db/Database.php";
+require_once __DIR__ . "/../../classes/admin/admin-auth.php";
+require_once __DIR__ . "/../../classes/user/user.php";
+require_once __DIR__ . "/../../utils/validator.php";
 require_once __DIR__ . "/../../utils/password-utils.php";
 
+$auth = new AdminAuth();
+$user = new User();
+$create_user_errors = [];
+$images_dir = __DIR__ . '/../../uploads/users';
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $db = new Database();
-    $conn = $db->connect();
+    
+    $post_data = validate_posted_data($_POST);
+    $create_user_errors = array_merge($create_user_errors, $post_data['errors']);
 
-
-    $name = $_POST["name"];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
+    $name = $_POST["name"] ?? '';
+    $email = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL);
+    $password = $_POST["password"] ?? '';
+    $confirmation_password = $_POST['confirmPassword'] ?? '';
     $ext = $_POST["ext"] ?? null;
-    $profile_image = "default.png"; 
+    $room_id = $_POST["room_id"] ?? null;
 
- 
-    $stmt = $conn->prepare("SELECT user_id FROM users WHERE email = :email");
-    $stmt->execute(['email' => $email]);
+    // image
+    $profile_image = $_FILES['profile_image'] ?? null;
+    $image_name = $profile_image['name'] ?? ''; 
+    $image_tmp_name = $profile_image['tmp_name'] ?? '';
+    $allowed_extensions = ["jpg", "jpeg", "png"];
 
-    if ($stmt->rowCount() > 0) {
-        echo "Email already exists!";
-        exit;
+    if (!empty($image_tmp_name)) {
+        $file_errors = validate_file($profile_image, $allowed_extensions);
+        $create_user_errors = array_merge($create_user_errors, $file_errors);
+    } else {
+        $create_user_errors['file_upload'] = "No image uploaded";
     }
 
-    $hashed_password = hash_password($password, $email);
-
     
-    if (!empty($_FILES["profile_image"]["name"])) {
-        $upload_dir = __DIR__ . "/../../uploads/";
-        if (!file_exists($upload_dir)) {
-            mkdir($upload_dir, 0777, true);
+    if (!confirm_registration_password($password, $confirmation_password)) {
+        $create_user_errors['password_mismatch'] = "Passwords do not match";
+    }
+
+    //check email
+    if ($user->email_used($email)) {
+        $create_user_errors['user_email'] = "Email is already in use";
+    }
+
+    if (empty($create_user_errors)) {
+        // upload image
+        $image_path = null;
+        $image_id = null;
+        
+        if (!empty($image_tmp_name)) {
+            $image_id = uniqid();
+            $new_image_name = $image_id . "_" . basename($image_name);
+            $image_path = $images_dir . "/" . $new_image_name;
+            var_dump($image_path);
+            if (!move_uploaded_file($image_tmp_name, $image_path)) {
+                $image_path = null; 
+            }
         }
 
-        $profile_image = time() . "_" . basename($_FILES["profile_image"]["name"]);
-        $upload_path = $upload_dir . $profile_image;
+        // Create user
+        $new_user = $auth->create_user($name, $password, $email, $room_id, $ext, $new_image_name);
 
-        move_uploaded_file($_FILES["profile_image"]["tmp_name"], $upload_path);
+        if ($new_user) {
+            header("Location: ../../views/user/login.php?success=User added successfully");
+            exit;
+        }
     }
 
-   
-    $stmt = $conn->prepare(
-        "INSERT INTO users (name, email, password, ext, profile_image) 
-         VALUES (:name, :email, :password, :ext, :profile_image)"
-    );
-
-    $stmt->execute([
-        'name' => $name,
-        'email' => $email,
-        'password' => $hashed_password,
-        'ext' => $ext,
-        'profile_image' => $profile_image
-    ]);
-
-    
-    header("Location: ../../views/user/login.php?success=User added successfully");
+    // redirec with errors
+    $errors_json = urlencode(json_encode($create_user_errors));
+    $old_data_json = urlencode(json_encode($post_data["data"]));
+    header("Location: ../../views/admin/admin_dashboard.php?errors={$errors_json}&old={$old_data_json}");
     exit;
 }
-?>
