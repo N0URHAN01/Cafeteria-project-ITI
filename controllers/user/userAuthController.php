@@ -1,29 +1,35 @@
 <?php
-session_start();
-require_once __DIR__ . "/../../classes/db/Database.php";
-require_once __DIR__ . "/../../utils/password-utils.php";
+ session_start();
+require_once __DIR__ . "/../../classes/user/user.php";
+require_once __DIR__ . "/../../utils/validator.php";
+
+
+$auth = new User();
+$user_login_errors = [];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $db = new Database();
-    $conn = $db->connect();
+    $post_data = validate_posted_data($_POST);
+    $user_login_errors = array_merge($user_login_errors, $post_data['errors']);
 
-    $email = $_POST["email"];
-    $password = $_POST["password"];
+    $email = filter_var($post_data["data"]["email"], FILTER_SANITIZE_EMAIL);
+    $password = $post_data["data"]["password"];
 
-    
-    $stmt = $conn->prepare("SELECT user_id, password, name, profile_image FROM users WHERE email = :email");
-    $stmt->execute(['email' => $email]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    // auth user
+   $user_id = $auth->auth_user($email, $password); 
 
-    if ($user && $user["password"] === hash_password($password, $email)) {
-        $_SESSION["user_id"] = $user["user_id"];
+    if ($user_id !== false) {
+        $user = $auth->get_user_by_user_id($user_id);
+        $_SESSION["user_id"] = $user_id;
         $_SESSION["user_name"] = $user["name"];
         $_SESSION["user_image"] = $user["profile_image"];
 
         header("Location: ../../views/user/home.php");
         exit;
     } else {
-        header("Location: ../../views/user/login.php?error=Invalid credentials");
+        $user_login_errors["auth_errors"] = "Invalid email or password";
+        $errors_json = urlencode(json_encode($user_login_errors));
+        $old_data_json = urlencode(json_encode($post_data["data"]));
+        header("Location: ../../views/user/login.php?errors={$errors_json}&old_data={$old_data_json}");
         exit;
     }
 }

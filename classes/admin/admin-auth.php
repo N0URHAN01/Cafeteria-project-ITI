@@ -13,14 +13,7 @@ class AdminAuth{
     // create new user 
     public function create_user($name,$password,$email,$room_id, $ext,$profile_image){
         try{
-            // check if user exist 
-            $user_exist =  $this->db->connect()->prepare("SELECT user_id FROM users WHERE email = :email");
-            $user_exist->execute(['email' => $email]);
             
-            if($user_exist->rowCount()>0){
-                return "email exist";
-            }
-
             $hashed_password = hash_password($password,$email);
 
             $insert_user = $this->db->connect()->prepare(

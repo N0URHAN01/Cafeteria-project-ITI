@@ -1,0 +1,151 @@
+.navbar {
+    background-color: #f8f9fa !important;
+    box-shadow: none !important;
+}
+
+.navbar-brand, .nav-link {
+    color: #8B4513 !important;
+}
+
+.nav-link:hover {
+    color: #D76F32!important;
+}
+
+.cart-badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: red;
+    color: white;
+    font-size: 12px;
+    padding: 3px 7px;
+    border-radius: 50%;
+}
+
+.user-dropdown img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+
+.dropdown-menu {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+
+.navbar-nav {
+    margin-right: auto; 
+}
+
+.navbar-nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-nav-left .nav-item {
+    margin-right: 25px; 
+}
+
+
+.nav-link {
+    font-size: 1.25rem; 
+    font-weight: 600; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+}
+
+
+.navbar-nav-right .nav-item {
+    margin-left: 25px; 
+}
+
+.navbar-nav-right .nav-link {
+    font-size: 1.25rem; 
+    font-weight: 600; 
+}
+
+
+.cart-icon {
+    font-size: 1.25rem;
+    margin-right: 5px;
+}
+
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; 
+    background-color: #f8f9fa;
+    padding-top: 0;
+    margin-top: -5px; 
+    flex-direction: row; 
+}
+
+.header-text {
+    flex: 1;
+    text-align: left;
+    padding: 40px;
+}
+
+.header-text h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #5D3A00; 
+}
+
+.header-text h4 {
+    font-size: 1.5rem;
+    color:rgb(122, 103, 66); 
+}
+
+.header-image {
+    flex: 1;
+    max-width: 50%;
+    height: 100%;
+    object-fit: cover;
+    order: 1; 
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column; 
+        text-align: center;
+        padding: 20px;
+    }
+
+    .header-text {
+        flex: none;
+        padding: 20px 0;
+    }
+
+    .header-image {
+        max-width: 100%;
+        order: 0; 
+    }
+
+    .header-text h1 {
+        font-size: 2rem; 
+    }
+
+    .header-text h4 {
+        font-size: 1.2rem; 
+    }
+}
+
+@media (max-width: 480px) {
+    .header-text h1 {
+        font-size: 1.8rem; 
+    }
+
+    .header-text h4 {
+        font-size: 1rem; 
+    }
+}
