@@ -49,7 +49,7 @@
         </div>
         <!-- Admin Profile -->
         <div class="admin-box">
-        <img src="/phpproject/public/image/3.png" alt="Admin" />
+        <img src="/phpproject/Cafeteria-project-ITI/views/users/public/image/3.png" alt="Admin" />
         
             <span>Admin</span>
         </div>
