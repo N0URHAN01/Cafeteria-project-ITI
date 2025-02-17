@@ -9,13 +9,10 @@ session_start();
 
 // // Check if admin is logged in
 requireAuthAdmin();
-
-
-
-
 // Create database connection
 $database = new Database();
-$db = $database->connect(); // Ensure connect() is used
+// Ensure connect() is used
+$db = $database->connect(); 
 
 // Fetch admin details
 $admin_id = $_SESSION["admin_id"];
@@ -214,7 +211,7 @@ function toggleDropdown() {
 
       <li class=" admin-dropdown ml-md-auto">
         <div class="admin-info" onclick="toggleDropdown()">
-            <img src="../../uploads/<?= $admin['profile_image']; ?>" alt="Admin" class="profile-img" />
+            <img src="../../uploads/users/<?= $admin['profile_image']; ?>" alt="Admin" class="profile-img" />
             <span><?= htmlspecialchars($admin['name']); ?></span>
         </div>
         <ul class="dropdown-menu" id="dropdownMenu">
@@ -226,14 +223,18 @@ function toggleDropdown() {
 </nav>
 
    
-    <div class="container-xl">
+<div class="container-xl">
       <div class="table-responsive">
         <div class="table-wrapper">
           <div class="table-title">
-            <div class="row">
-              <div class="col-sm-8">
-                <h2>Customer <b>Details</b></h2>
+            <div class="row d-flex justify-between ">
+              <div class="col-sm-10 col-12">
+                <h2>Users <b>Details</b></h2>
               </div>
+<!--               
+              <a class="btn btn-info col-sm-2 px-2 " type="button" 
+              data-target="#addcat" href="admin_dashboard.php"> + Add New User</a> -->
+
             </div>
           </div>
           <table class="table table-striped table-hover table-bordered">
@@ -255,11 +256,11 @@ function toggleDropdown() {
                       <td>{$user['user_id']}</td>
                       <td>{$user['name']}</td>
                       <td>{$user['room_number']}</td>
-                      <td><img src='../../uploads/{$user['profile_image']}' width='50'></td>
+                      <td><img src='../../uploads/users/{$user['profile_image']}' width='50'></td>
                       <td>{$user['ext']}</td>
                       <td>
-                          <a href='userDetails.php?id={$user['user_id']}' class='view'><i class='material-icons'>&#xE417;</i></a>
-                          <a href='editUser.php?id={$user['user_id']}' class='edit'><i class='material-icons'>&#xE254;</i></a>
+                          <a href='userDetails.php?user_id={$user['user_id']}' class='view'><i class='material-icons'>&#xE417;</i></a>
+                          <a href='updateUser.php?user_id={$user['user_id']}' class='edit'><i class='material-icons'>&#xE254;</i></a>
                           <form action='../../controllers/admin/usersController.php' method='POST' style='display:inline;'>
                               <input type='hidden' name='user_id' value='{$user['user_id']}'>
                               <input type='hidden' name='action' value='delete'>
