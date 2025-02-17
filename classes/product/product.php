@@ -69,6 +69,54 @@ class Product{
             error_log("Database query error: " . $e->getMessage());
             return false; 
     }
+}
+ 
+    public function get_product_by_id($product_id) {
+        try {
+            $query = "SELECT p.product_id, p.name, p.price, p.stock_quantity, p.status, 
+                             p.image_url, c.category_id, c.name AS category_name
+                      FROM products p
+                      LEFT JOIN categories c ON p.category_id = c.category_id
+                      WHERE p.product_id = :product_id
+                      LIMIT 1";
+    
+            $stmt = $this->db->connect()->prepare($query);
+            $stmt->bindParam(':product_id', $product_id, PDO::PARAM_INT);
+            $stmt->execute();
+    
+            return $stmt->fetch(PDO::FETCH_ASSOC); 
+    
+        } catch (PDOException $e) {
+            error_log("Database query error: " . $e->getMessage());
+            return false; 
+        }
+    }
+    
+    public function update_product($product_id, $name, $price, $category_id, $image_url, $stock_quantity, $status) {
+        try {
+                      
+            $query = "UPDATE products 
+                      SET name = :name, price = :price, category_id = :category_id, 
+                          image_url = :image_url, stock_quantity = :stock_quantity, status = :status 
+                      WHERE product_id = :product_id";
+    
+            $stmt = $this->db->connect()->prepare($query);
+            $stmt->bindParam(':product_id', $product_id, PDO::PARAM_INT);
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':price', $price);
+            $stmt->bindParam(':category_id', $category_id, PDO::PARAM_INT);
+            $stmt->bindParam(':image_url', $image_url);
+            $stmt->bindParam(':stock_quantity', $stock_quantity, PDO::PARAM_INT);
+            $stmt->bindParam(':status', $status);
+    
+            return $stmt->execute() ? true : false;
+    
+        } catch (PDOException $e) {
+            error_log("Database query error: " . $e->getMessage());
+            return false;
+        }
+    }
     
 
-}}
+
+}
