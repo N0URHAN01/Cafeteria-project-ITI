@@ -7,7 +7,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form method="POST" action="/../../controllers/admin/categoryController.php">
+      <form method="POST" action="../../controllers/admin/categoryController.php">
 
       <div class="modal-body">
         <?php if (isset($_SESSION["success"])): ?>

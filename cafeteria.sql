@@ -42,7 +42,7 @@ CREATE TABLE categories (
 -- products table
 CREATE TABLE products (
     product_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL UNIQUE,
     price DECIMAL(10,2) NOT NULL,
     category_id INT,
     image_url VARCHAR(255),
