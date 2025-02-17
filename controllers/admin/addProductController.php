@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $new_product = $product->create_product($name, $price, $category_id, $new_image_name,$stock_quantity,$status);
 
         if ($new_product) {
-            header("Location: ../../views/admin/products.php.php?success=Product added successfully");
+            header("Location: ../../views/admin/products.php?success=Product added successfully");
             exit;
         }
     }
