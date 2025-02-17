@@ -117,6 +117,18 @@ class Product{
         }
     }
     
+    public function delete_product($product_id){
+        try{
+            
+            $query = "DELETE FROM products WHERE product_id = :product_id";
+            $stmt = $this->db->connect()->prepare($query);
+            $stmt->bindParam(':product_id', $product_id, PDO::PARAM_INT);
+            return $stmt->execute() ? true : false;
+        }catch (PDOException $e) {
+            error_log("Database query error: " . $e->getMessage());
+            return false;
+        }
 
+    }
 
 }
