@@ -20,6 +20,10 @@ $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 // Get all products
 $product = new Product();
 $all_products = $product->get_all_products();
+
+// Get success/error messages
+$success_message = $_GET['success'] ?? null;
+$error_message = $_GET['error'] ?? null;
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +43,7 @@ $all_products = $product->get_all_products();
         table.table td img { width: 50px; height: 50px; border-radius: 5px; }
         table.table td a { margin: 0 5px; }
         .edit { color: #ffc107; } 
-        .delete { color: #e34724; }
+        .delete { color: #e34724; cursor: pointer; }
         .navbar { background-color: #5c3d2e; }
         .profile-img { width: 40px; height: 40px; border-radius: 50%; margin-right: 10px; border: 2px solid #b08968; }
     </style>
@@ -57,7 +61,7 @@ $all_products = $product->get_all_products();
             <li class="nav-item"><a class="nav-link" href="categories.php">Categories</a></li>
             <li class="ml-auto">
                 <div class="admin-info" onclick="toggleDropdown()">
-                    <img src="../../uploads/<?= $admin['profile_image']; ?>" class="profile-img" />
+                    <img src="../../uploads/<?= htmlspecialchars($admin['profile_image']); ?>" class="profile-img" />
                     <span><?= htmlspecialchars($admin['name']); ?></span>
                 </div>
                 <ul class="dropdown-menu" id="dropdownMenu">
@@ -80,6 +84,15 @@ $all_products = $product->get_all_products();
                     </div>
                 </div>
             </div>
+
+            <!-- Success/Error Messages -->
+            <?php if ($success_message): ?>
+                <div class="alert alert-success"><?= htmlspecialchars($success_message); ?></div>
+            <?php endif; ?>
+            <?php if ($error_message): ?>
+                <div class="alert alert-danger"><?= htmlspecialchars($error_message); ?></div>
+            <?php endif; ?>
+
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
@@ -104,14 +117,11 @@ $all_products = $product->get_all_products();
                         <td><span class="badge badge-<?= $product['status'] === 'available' ? 'success' : 'danger'; ?>">
                             <?= ucfirst($product['status']); ?>
                         </span></td>
-                        <td><img src='../../uploads/products/<?= $product['image_url']; ?>' onerror="this.src='../../uploads/products/default.png'"></td>
+                        <td><img src='../../uploads/products/<?= htmlspecialchars($product['image_url']); ?>' 
+                                 onerror="this.src='../../uploads/products/default.png'"></td>
                         <td>
                             <a href="edit_product.php?id=<?= $product['product_id']; ?>" class="edit"><i class="fas fa-edit"></i></a>
-                            <form action="../../controllers/admin/productController.php" method="POST" style="display:inline;">
-                                <input type="hidden" name="product_id" value="<?= $product['product_id']; ?>">
-                                <input type="hidden" name="action" value="delete">
-                                <button type="submit" class="delete btn btn-link p-0"><i class="fas fa-trash-alt"></i></button>
-                            </form>
+                            <button class="delete" onclick="confirmDelete(<?= $product['product_id']; ?>)"><i class="fas fa-trash-alt"></i></button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -121,12 +131,22 @@ $all_products = $product->get_all_products();
     </div>
 </div>
 
+<!-- Delete Confirmation -->
+<script>
+function confirmDelete(productId) {
+    if (confirm("Are you sure you want to delete this product?")) {
+        window.location.href = "../../controllers/admin/deleteProductController.php?action=delete&product_id=" + productId;
+    }
+}
+</script>
+
 <script>
 function toggleDropdown() {
     var dropdown = document.getElementById("dropdownMenu");
     dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
 }
 </script>
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
