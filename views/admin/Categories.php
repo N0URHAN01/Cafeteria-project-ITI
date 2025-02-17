@@ -144,7 +144,7 @@ $categories = $categoryController->getCategories();
 
       <li class=" admin-dropdown ml-md-auto">
         <div class="admin-info" onclick="toggleDropdown()">
-            <img src="../../uploads/<?= $admin['profile_image']; ?>" alt="Admin" class="profile-img" />
+            <img src="../../uploads/users/<?= $admin['profile_image']; ?>" alt="Admin" class="profile-img" />
             <span><?= htmlspecialchars($admin['name']); ?></span>
         </div>
         <ul class="dropdown-menu" id="dropdownMenu">
