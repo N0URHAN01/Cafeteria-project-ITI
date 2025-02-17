@@ -170,6 +170,14 @@ $all_rooms = $room->get_all_rooms();
            }
         }
     </style>
+        <script>
+
+function toggleDropdown() {
+    var dropdown = document.getElementById("dropdownMenu");
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+}
+
+    </script>
 </head>
 <body>
 
