@@ -1,13 +1,11 @@
 <?php
-// session_start();
+session_start();
 require_once __DIR__ . "/../../classes/db/Database.php";
 require_once __DIR__ . "/../../controllers/admin/categoryController.php";
+require_once __DIR__ . "/../../middleware/authMiddleware.php";
 
 // Ensure admin is logged in
-if (!isset($_SESSION["is_admin"]) || !isset($_SESSION["admin_id"])) {
-    header("Location: login.php");
-    exit;
-}
+requireAuthAdmin();
 
 $db = new Database();
 $conn = $db->connect();

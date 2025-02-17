@@ -3,13 +3,12 @@
 
 require_once '../../classes/db/Database.php';
 require_once '../../controllers/admin/usersController.php';
+require_once __DIR__ . "/../../middleware/authMiddleware.php";
+
 session_start();
 
 // // Check if admin is logged in
-if (!isset($_SESSION["is_admin"]) || !isset($_SESSION["admin_id"])) {
-  header("Location: login.php");
-  exit;
-}
+requireAuthAdmin();
 
 
 
