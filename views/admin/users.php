@@ -12,10 +12,10 @@ requireAuthAdmin();
 
 
 
-
 // Create database connection
 $database = new Database();
-$db = $database->connect(); // Ensure connect() is used
+// Ensure connect() is used
+$db = $database->connect(); 
 
 // Fetch admin details
 $admin_id = $_SESSION["admin_id"];
@@ -187,77 +187,73 @@ $users = $usersController->getAllUsers();
         <li class="nav-item px-2"><a class="nav-link" href="users.php">Users</a></li>
         <li class="nav-item px-2"><a class="nav-link" href="Categories.php">Categories</a></li>
 
-        <li class="admin-dropdown ml-md-auto">
-          <div class="admin-info" onclick="toggleDropdown()">
+      <li class=" admin-dropdown ml-md-auto">
+        <div class="admin-info" onclick="toggleDropdown()">
             <img src="../../uploads/<?= $admin['profile_image']; ?>" alt="Admin" class="profile-img" />
             <span><?= htmlspecialchars($admin['name']); ?></span>
           </div>
           <ul class="dropdown-menu" id="dropdownMenu">
             <li><a href="../../controllers/admin/logoutController.php">Logout</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </nav>
+        </ul>
+     </li>
+    </ul>
+  </div>
+</nav>
 
-  <div class="container-xl">
-    <div class="table-responsive">
-      <div class="table-wrapper">
-        <div class="table-title">
-          <div class="row">
-            <div class="col-sm-8">
-              <h2>Customer <b>Details</b></h2>
-            </div>
-            <div class="col-sm-4">
-              <!-- Add New User Button -->
-              <a href="adduserform.php" class="btn btn-success" style="float: right;">
-                <i class="fa fa-user-plus"></i> Add New User
-              </a>
+   
+    <div class="container-xl">
+      <div class="table-responsive">
+        <div class="table-wrapper">
+          <div class="table-title">
+            <div class="row">
+              <div class="col-sm-8">
+                <h2>Customer <b>Details</b></h2>
+              </div>
             </div>
           </div>
+          <table class="table table-striped table-hover table-bordered">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name <i class="fa fa-sort"></i></th>
+                <th>Room</th>
+                <th>Image</th>
+                <th>Ext.</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              $users = $usersController->getAllUsers();
+              foreach ($users as $user) {
+                  echo "<tr>
+                      <td>{$user['user_id']}</td>
+                      <td>{$user['name']}</td>
+                      <td>{$user['room_number']}</td>
+                      <td><img src='../../uploads/{$user['profile_image']}' width='50'></td>
+                      <td>{$user['ext']}</td>
+                      <td>
+                          <a href='userDetails.php?id={$user['user_id']}' class='view'><i class='material-icons'>&#xE417;</i></a>
+                          <a href='editUser.php?id={$user['user_id']}' class='edit'><i class='material-icons'>&#xE254;</i></a>
+                          <form action='../../controllers/admin/usersController.php' method='POST' style='display:inline;'>
+                              <input type='hidden' name='user_id' value='{$user['user_id']}'>
+                              <input type='hidden' name='action' value='delete'>
+                              <button type='submit' class='delete' style='border:none; background:none;'><i class='material-icons'>&#xE872;</i></button>
+                          </form>
+                      </td>
+                  </tr>";
+              }
+              ?>
+              </tbody>
+              
+          </table>
         </div>
-
-        <table class="table table-striped table-hover table-bordered">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Name <i class="fa fa-sort"></i></th>
-              <th>Room</th>
-              <th>Image</th>
-              <th>Ext.</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            $users = $usersController->getAllUsers();
-            foreach ($users as $user) {
-              echo "<tr>
-                  <td>{$user['user_id']}</td>
-                  <td>{$user['name']}</td>
-                  <td>{$user['room_number']}</td>
-                  <td><img src='../../uploads/users/" . htmlspecialchars($user['image']) . "' alt='User' width='50'></td>
-                  <td>{$user['ext']}</td>
-                  <td>
-                      <a href='userDetails.php?id={$user['user_id']}' class='view'><i class='material-icons'>&#xE417;</i></a>
-                      <a href='editUser.php?id={$user['user_id']}' class='edit'><i class='material-icons'>&#xE254;</i></a>
-                      <form action='../../controllers/admin/usersController.php' method='POST' style='display:inline;'>
-                          <input type='hidden' name='user_id' value='{$user['user_id']}'>
-                          <input type='hidden' name='action' value='delete'>
-                          <button type='submit' class='delete' style='border:none; background:none;'><i class='material-icons'>&#xE872;</i></button>
-                      </form>
-                  </td>
-              </tr>";
-            }
-            ?>
-          </tbody>
-        </table>
       </div>
     </div>
-  </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
   </body>
 </html>
