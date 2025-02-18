@@ -43,7 +43,20 @@ class User{
         }
     }
    
-   
+ 
+    // get all users data 
+    public function get_all_users(){
+        try{
+            $stmt = $this->db->connect()->prepare("SELECT * FROM users");
+            $stmt->execute();
+            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $users;
+        }catch(PDOException $e){
+            error_log("Database connection error: " . $e->getMessage());
+            return false;
+        }
+    }
+    
    
     //user authentication
     public function auth_user($email,$password):string | false{
@@ -70,5 +83,4 @@ class User{
             return false;
         }
     }
-
 }
