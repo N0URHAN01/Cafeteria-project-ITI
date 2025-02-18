@@ -6,7 +6,6 @@ require_once __DIR__ . "/../../middleware/authMiddleware.php";
 
 $product = new Product();
 
-// Check if admin is logged in
 requireAuthAdmin();
 
 // Fetch admin details
