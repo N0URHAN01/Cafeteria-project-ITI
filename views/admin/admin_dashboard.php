@@ -191,7 +191,7 @@ function toggleDropdown() {
     <a href="admin_dashboard.php">Home</a>
     <a href="products.php">Product</a>
     <a href="users.php">Users</a>
-    <a href="#">Manual Order</a>
+    <a href="ManualOrder.php">Manual Order</a>
     
     <a href="#">Checks</a>
     <a href="Categories.php">Categories</a>
