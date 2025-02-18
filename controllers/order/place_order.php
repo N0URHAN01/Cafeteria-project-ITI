@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $order->update_order_total($order_id, $total_price);
             $db->commit();
 
-            header("Location: ../../views/{$who_is_placing_order}/orders.php?success=Order placed successfully");
+            header("Location: ../../views/{$who_is_placing_order}/AllOrders.php?success=Order placed successfully");
             exit;
         } catch (Exception $e) {
             $db->rollBack();
