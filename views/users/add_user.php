@@ -49,9 +49,8 @@
         </div>
         <!-- Admin Profile -->
         <div class="admin-box">
-        <img src="/phpproject/Cafeteria-project-ITI/views/users/public/image/3.png" alt="Admin" />
-        
-            <span>Admin</span>
+            <span><a class="nav-link" href="#">Admin</a></span>
+            <img src="/phpproject/Cafeteria-project-ITI/views/users/public/image/3.png" alt="Admin" />
         </div>
     </div>
 </nav>

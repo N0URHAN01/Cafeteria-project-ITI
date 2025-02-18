@@ -1,21 +1,5 @@
 <?php
 
-// steps to open database
-// sudo mysql -u root -p
-//sudo mysql -u fatma -p
-//GRANT ALL PRIVILEGES ON *.* TO 'fatma'@'localhost' WITH GRANT OPTION;
-//FLUSH PRIVILEGES;
-//CREATE DATABASE user_management;
-//USE user_management;
-
-
-//exit;
-
-//to start apache
-//sudo systemctl start httpd
-//sudo systemctl enable httpd
-
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["name"];
     $email = $_POST["email"];
