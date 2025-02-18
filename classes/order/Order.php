@@ -76,5 +76,48 @@ class Order {
             throw new Exception("Error updating order total: " . $e->getMessage());
         }
     }
+
+
+    public function get_all_orders() {
+        try {
+            $stmt = $this->db->prepare(
+                "SELECT o.order_id, o.user_id, u.name AS user_name, r.room_number, o.total_price, o.status, o.created_at 
+                 FROM orders o
+                 JOIN users u ON o.user_id = u.user_id
+                 JOIN rooms r ON o.room_id = r.room_id
+                 ORDER BY o.created_at DESC"
+            );
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            throw new Exception("Error fetching orders: " . $e->getMessage());
+        }
+    }
+
+    public function get_order_items($order_id) {
+        try {
+            $stmt = $this->db->prepare(
+                "SELECT p.name AS product_name, op.quantity, op.price 
+                 FROM ordered_products op
+                 JOIN products p ON op.product_id = p.product_id
+                 WHERE op.order_id = :order_id"
+            );
+            $stmt->execute(['order_id' => $order_id]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            throw new Exception("Error fetching order items: " . $e->getMessage());
+        }
+    }
+
+    // update order status
+    public function update_order_status($order_id, $status) {
+        try {
+            $stmt = $this->db->prepare("UPDATE orders SET status = :status WHERE order_id = :order_id");
+            return $stmt->execute(['status' => $status, 'order_id' => $order_id]);
+        } catch (PDOException $e) {
+            throw new Exception("Error updating order status: " . $e->getMessage());
+        }
+    }
+
 }
 ?>
