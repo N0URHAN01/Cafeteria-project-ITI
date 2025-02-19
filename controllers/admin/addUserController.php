@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $new_user = $auth->create_user($name, $password, $email, $room_id, $ext, $new_image_name);
 
         if ($new_user) {
-            header("Location: ../../views/user/admin_dashboard.php?success=User added successfully");
+            header("Location: ../../views/admin/admin_dashboard.php?success=User added successfully");
             exit;
         }
     }
