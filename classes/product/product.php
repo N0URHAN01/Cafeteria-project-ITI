@@ -131,4 +131,21 @@ class Product{
 
     }
 
+
+
+    public function get_products_by_category($category_id) {
+        try {
+            $query = "SELECT * FROM products WHERE category_id = :category_id";
+            $stmt = $this->db->connect()->prepare($query);
+            $stmt->bindParam(':category_id', $category_id, PDO::PARAM_INT);
+            $stmt->execute();
+            
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Database query error: " . $e->getMessage());
+            return [];
+        }
+    }
+    
+
 }

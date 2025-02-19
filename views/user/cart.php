@@ -80,12 +80,14 @@ foreach ($_SESSION['cart'] as $item) {
 <?php include 'navbar.php'; ?>
 
 
+
+
 <div class="container mt-5">
-    <h2 class="text-center">Your Cart</h2>
+    <h2 class="cart-title">Your Cart</h2> 
     
     <?php if (!empty($_SESSION['cart'])): ?>
-        <table class="table table-bordered text-center mt-3">
-            <thead class="table-dark">
+        <table class="table table-bordered text-center mt-3 cart-table"> 
+            <thead>
                 <tr>
                     <th>Image</th>
                     <th>Product</th>
@@ -122,14 +124,15 @@ foreach ($_SESSION['cart'] as $item) {
         </table>
 
         <div class="text-end mt-3">
-            <h4>Total: $<?= number_format($totalPrice, 2); ?></h4>
-            <a href="checkout.php" class="btn btn-primary">Confirm Order</a>
+            <h4 class="total-price">Total: $<?= number_format($totalPrice, 2); ?></h4>
+            <a href="checkout.php" class="btn confirm-order-btn">Confirm Order</a>
         </div>
 
     <?php else: ?>
         <p class="text-center text-muted">Your cart is empty.</p>
     <?php endif; ?>
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
