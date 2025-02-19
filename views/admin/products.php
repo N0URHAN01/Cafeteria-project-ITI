@@ -34,9 +34,10 @@ $error_message = $_GET['error'] ?? null;
     <title>Admin Dashboard - Products</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+    <link rel="icon" href="../../static_images/favicon.ico" type="image/ico" />
+   
     <style>
-        body { background-color: #F6E2B3; font-family: "Roboto", sans-serif; }
+        body {background: #f5f5f0;  font-family: "Roboto", sans-serif; }
         .table-wrapper { background: #fff; padding: 20px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); }
         .table-title { margin-bottom: 10px; }
         .table-title h2 { font-size: 22px; }

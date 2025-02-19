@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . "/../../classes/db/Database.php";
-require_once __DIR__ . "/../../controllers/admin/categoryController.php";
+require_once __DIR__ . "/../../classes/admin/category.php";
 require_once __DIR__ . "/../../middleware/authMiddleware.php";
 
 // Ensure admin is logged in
@@ -16,7 +16,7 @@ $stmt->execute(['admin_id' => $admin_id]);
 $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // Fetch categories
-$categoryController = new CategoryController();
+$categoryController = new Category();
 $categories = $categoryController->getCategories();
 ?>
 
@@ -37,11 +37,6 @@ $categories = $categoryController->getCategories();
     <link href="../../css/adminNavbar.css" rel="stylesheet" />
     <link href="../../css/table.css" rel="stylesheet" />
     
-    <script>
-      $(document).ready(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-      });
-    </script>
 </head>
 <body>
 
@@ -83,6 +78,8 @@ $categories = $categoryController->getCategories();
               <tr>
                 <th>#</th>
                 <th>Name <i class="fa fa-sort"></i></th>                
+                <th>Actions</th>                
+
               </tr>
             </thead>
             <tbody>
@@ -92,6 +89,14 @@ $categories = $categoryController->getCategories();
                   echo "<tr>
                       <td>{$category['category_id']}</td>
                       <td>{$category['name']}</td>
+                       <td>
+                           
+                            <form action='../../controllers/admin/categoryController.php' method='POST' style='display:inline;'>
+                                <input type='hidden' name='category_id' value='{$category['category_id']}'>
+                                <input type='hidden' name='action' value='delete'>
+                                <button type='submit' class='delete' style='border:none; background:none;'><i class='material-icons'>&#xE872;</i></button>
+                            </form>
+                        </td>
                   </tr>";
               }
               ?>

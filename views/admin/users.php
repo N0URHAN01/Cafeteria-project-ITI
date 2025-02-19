@@ -1,14 +1,12 @@
 <?php
 require_once '../../classes/db/Database.php';
-require_once '../../controllers/admin/usersController.php';
+require_once '../../classes/admin/users.php';
 require_once __DIR__ . "/../../middleware/authMiddleware.php";
 
 // // Check if admin is logged in
 requireAuthAdmin();
 
-// Create database connection
 $database = new Database();
-// Ensure connect() is used
 $db = $database->connect(); 
 
 // Fetch admin details
@@ -17,11 +15,11 @@ $stmt = $db->prepare("SELECT name, profile_image FROM admins WHERE admin_id = :a
 $stmt->execute(['admin_id' => $admin_id]);
 $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Pass the database connection to UsersController
-$usersController = new UsersController($db);
+// Pass the database connection to Users class
+$UsersModal = new Users($db);
 
 // Fetch all users
-$users = $usersController->getAllUsers();
+$users = $UsersModal->getAllUsers();
 ?>
 
 <!DOCTYPE html>
@@ -41,79 +39,7 @@ $users = $usersController->getAllUsers();
     <link href="../../css/adminNavbar.css" rel="stylesheet" />
     <link href="../../css/table.css" rel="stylesheet" />
     
-    <style>
-      body {
-        background: #f5f5f0;
-      }
-      .sidebar {
-        position: fixed;
-        z-index: 99999;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        width: 250px;
-        background-color: #7e5a3c;
-        color: white;
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-        /* padding-top: 30px; */
-      }
-      .sidebar .admin-info {
-        text-align: center;
-        margin-bottom: 20px;
-      }
-      .sidebar .admin-info img {
-        border-radius: 50%;
-        width: 60px;
-        height: 60px;
-      }
-      .sidebar .admin-info p {
-        margin-top: 10px;
-      }
-      .sidebar a {
-        color: white;
-        text-decoration: none;
-        padding: 10px;
-        display: block;
-        font-size: 16px;
-      }
-      .sidebar a:hover {
-        background-color: #d76f32;
-      }
-      .btn-add-user {
-        background-color: #7e5a3c;
-        color: white;
-        border-radius: 25px;
-        padding: 0.6rem 1.2rem;
-        font-size: 1rem;
-        font-weight: bold;
-        transition: background-color 0.3s ease;
-      }
-      .btn-add-user:hover {
-        background-color: #d76f32;
-      }
-      .btn-logout {
-        background-color: #5c3d2e;
-        color: white;
-        border-radius: 25px;
-        padding: 0.6rem 1.2rem;
-        font-size: 1rem;
-        font-weight: bold;
-        transition: background-color 0.3s ease;
-      }
-      .btn-logout:hover {
-        background-color: rgb(201, 43, 38);
-      }
-
-      .admin-dropdown {
-        position: relative;
-      }
-      </style>
-    <script>
-      $(document).ready(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-      });
-    </script>
-  </head>
+</head>
   <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -162,7 +88,7 @@ $users = $usersController->getAllUsers();
               </thead>
               <tbody>
                 <?php
-                $users = $usersController->getAllUsers();
+                $users = $UsersModal->getAllUsers();
                 foreach ($users as $user) {
                     echo "<tr>
                         <td>{$user['user_id']}</td>

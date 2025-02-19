@@ -2,7 +2,7 @@
 // session_start();
 require_once __DIR__ . "/../../classes/db/Database.php";
 require_once __DIR__ . "/../../classes/admin/room.php";
-require_once '../../controllers/admin/usersController.php';
+require_once '../../classes/admin/users.php';
 
 require_once __DIR__ . "/../../middleware/authMiddleware.php";
 // require_once '../../classes/admin/users.php';
@@ -13,7 +13,7 @@ requireAuthAdmin();
 
 $db = new Database();
 $conn = $db->connect();
-$usersController = new usersController($conn);
+$usersModal = new Users($conn);
 
 // Fetch admin details
 $admin_id = $_SESSION["admin_id"];
@@ -29,7 +29,7 @@ if (!isset($_GET['user_id']) || empty($_GET['user_id'])) {
 }
 $user_id = $_GET['user_id'];
 // Fetch single user
-$user = $usersController->getUserById($user_id);
+$user = $usersModal->getUserById($user_id);
 if (!$user) {
     die("User not found.");
 }
@@ -42,6 +42,8 @@ if (!$user) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - update User</title>
+    <link rel="icon" href="../../static_images/favicon.ico" type="image/ico" />
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="../../css/global_style.css"   rel="stylesheet" />
@@ -50,40 +52,18 @@ if (!$user) {
 
     <style>
 
-
-        .sidebar {
-            position: fixed;
-            z-index:99999;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            width: 250px;
-            background-color: #7E5A3C; 
-            color: white;
-            /* padding-top: 30px; */
-        }
-        .sidebar .admin-info {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .sidebar .admin-info img {
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-        }
-        .sidebar .admin-info p {
-            margin-top: 10px;
-        }
-        .sidebar a {
-            color: white;
-            text-decoration: none;
-            padding: 10px;
-            display: block;
-            font-size: 16px;
-        }
-        .sidebar a:hover {
-            background-color: #D76F32; 
-        }
+      .btn-add-user {
+        background-color: #7e5a3c;
+        color: white;
+        border-radius: 25px;
+        padding: 0.6rem 1.2rem;
+        font-size: 1rem;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+      }
+      .btn-add-user:hover {
+        background-color: #d76f32;
+      }
         .main-content {
             margin-left: 250px;
             padding: 20px;
@@ -164,61 +144,6 @@ if (!$user) {
            }
         }
 
-        
-      .admin-dropdown {
-    position: relative;
-}
-
-.admin-info {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-
-    border-radius: 25px;
-}
-
-.profile-img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-    border: 2px solid #b08968;
-}
-
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 50px;
-    right: 0;
-    background: #fff;
-    border-radius: 8px;
-    list-style: none;
-    padding: 10px 0;
-    width: 70px;
-    text-align: center;
-    min-width:auto !important;
-}
-
-.dropdown-menu li {
-    padding: 5px;
-}
-
-.dropdown-menu li a {
-    text-decoration: none;
-    color: #b08968;
-    font-weight: bold;
-    display:inline-block;
-    width: 100%;
-    text-align:left;
-}
-
-.dropdown-menu li:hover {
-    background: #f4f4f4;
-    cursor: pointer;
-}
-.admin-header .dropdown-menu  li a:hover {
-  color: rgb(75, 24, 18) !important;
-}
     </style>
 
 </head>

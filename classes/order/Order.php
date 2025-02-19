@@ -119,5 +119,111 @@ class Order {
         }
     }
 
+// filter orders {checks}
+
+public function filterOrderbyDateAndUser($date_from, $date_to, $user_id){
+    try{
+        $stmt = $this->db->prepare(
+            "SELECT o.order_id, o.user_id, u.name AS user_name, r.room_number, 
+                    o.total_price, o.status, o.created_at
+             FROM orders o
+             JOIN users u ON o.user_id = u.user_id
+             JOIN rooms r ON o.room_id = r.room_id
+             WHERE o.created_at BETWEEN :date_from AND :date_to 
+             AND o.user_id = :user_id
+             ORDER BY o.created_at DESC"
+        );
+        
+        $stmt->execute(['date_from' => $date_from, 'date_to' => $date_to, 'user_id' => $user_id]);
+        $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($orders as &$order) {
+            $order['items'] = $this->get_order_items($order['order_id']);
+        }
+
+        return $orders;
+    } catch (PDOException $e) {
+        throw new Exception("Error fetching order items: " . $e->getMessage());
+    }
+}
+
+    public function filterOrderbyDate($date_from,$date_to){
+        try{
+            
+            $stmt = $this->db->prepare(
+                "SELECT o.order_id, o.user_id, u.name AS user_name, r.room_number, 
+                        o.total_price, o.status, o.created_at
+                 FROM orders o
+                 JOIN users u ON o.user_id = u.user_id
+                 JOIN rooms r ON o.room_id = r.room_id
+                 WHERE o.created_at BETWEEN :date_from AND :date_to
+                 ORDER BY o.created_at DESC"
+            );
+    
+            $stmt->execute(['date_from' => $date_from, 'date_to' => $date_to]);
+            $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            foreach ($orders as &$order) {
+                $order['items'] = $this->get_order_items($order['order_id']);
+            }
+    
+            return $orders;
+        }catch (PDOException $e) {
+            throw new Exception("Error fetching order items: " . $e->getMessage());
+        }
+    }
+
+
+    public function filterOrderbyUser($user_id){
+        try{
+            
+            $stmt = $this->db->prepare(
+                "SELECT o.order_id, o.user_id, u.name AS user_name, r.room_number, 
+                        o.total_price, o.status, o.created_at
+                 FROM orders o
+                 JOIN users u ON o.user_id = u.user_id
+                 JOIN rooms r ON o.room_id = r.room_id
+                 WHERE o.user_id = :user_id
+                 ORDER BY o.created_at DESC"
+            );
+    
+            $stmt->execute(['user_id' => $user_id]);
+            $orders =  $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            foreach ($orders as &$order) {
+                $order['items'] = $this->get_order_items($order['order_id']);
+            }
+    
+            return $orders;
+        }catch (PDOException $e) {
+            throw new Exception("Error fetching order items: " . $e->getMessage());
+        }
+    }
+
+
+    public function get_all_orders_with_items() {
+        try {
+            $stmt = $this->db->prepare(
+                "SELECT o.order_id, o.user_id, u.name AS user_name, r.room_number, 
+                        o.total_price, o.status, o.created_at 
+                 FROM orders o
+                 JOIN users u ON o.user_id = u.user_id
+                 JOIN rooms r ON o.room_id = r.room_id
+                 ORDER BY o.created_at DESC"
+            );
+            $stmt->execute();
+            $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($orders as &$order) {
+                $order['items'] = $this->get_order_items($order['order_id']);
+            }
+
+            return $orders;
+        } catch (PDOException $e) {
+            throw new Exception("Error fetching orders with items: " . $e->getMessage());
+        }
+    }
+
+
 }
 ?>
