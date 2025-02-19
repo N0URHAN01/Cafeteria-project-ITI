@@ -77,15 +77,8 @@ foreach ($_SESSION['cart'] as $item) {
     <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
+<?php include 'navbar.php'; ?>
 
-<nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container">
-        <a class="navbar-brand" href="home.php">Cafeteria</a>
-        <div class="navbar-nav-right d-flex align-items-center">
-            <a class="nav-link" href="home.php"><i class="fas fa-home"></i> Home</a>
-        </div>
-    </div>
-</nav>
 
 <div class="container mt-5">
     <h2 class="text-center">Your Cart</h2>

@@ -1,12 +1,5 @@
 <?php
-require_once __DIR__ . "/../../middleware/authMiddleware.php";
-require_once __DIR__ . "/../../classes/product/product.php";
-
 session_start();
-requireAuthUser();
-
-$productObj = new Product();
-$products = $productObj->get_all_products();
 ?>
 
 <!DOCTYPE html>
@@ -14,13 +7,14 @@ $products = $productObj->get_all_products();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>navbar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/home.css">
+
+
 </head>
 <body>
-
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -89,111 +83,11 @@ $products = $productObj->get_all_products();
     </div>
 </nav>
 
-<div class="header">
-    <div class="header-text">
-        <h1>Welcome to Our Cafeteria – Everything You Need to Feel Better!</h1>
-        <h4>Delicious meals and drinks await you! <br> Enjoy fresh, healthy food in a comfortable and welcoming environment.</h4>
-    </div>
-    <img src="image2.png" alt="Cafeteria Image" class="header-image">
-</div>
-
-<!-- Display Products -->
-<div class="container mt-5">
-    <h2 class="text-center">Our Products</h2>
-    <div class="row">
-        <?php if (!empty($products)): ?>
-            <?php foreach ($products as $product): ?>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="../../uploads/products/<?= htmlspecialchars($product['image_url']); ?>" class="card-img-top" alt="<?= htmlspecialchars($product['name']); ?>">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= htmlspecialchars($product['name']); ?></h5>
-                            <p class="card-text">$<?= htmlspecialchars(number_format($product['price'], 2)); ?></p>
-                            <p class="card-text">Stock: <?= htmlspecialchars($product['stock_quantity']); ?></p>
-                            
-                            <!-- Add to Cart Form -->
-                            <form method="POST" action="cart.php">
-                                <input type="hidden" name="product_id" value="<?= $product['product_id']; ?>">
-                                <button class="btn btn-success w-100 add-to-cart" data-product-id="<?= $product['product_id']; ?>">
-                                            Add to Cart  </button>
-
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p class="text-center">No products available.</p>
-        <?php endif; ?>
-    </div>
-</div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function() {
-    // Add to Cart
-    $(".add-to-cart").click(function() {
-        var productId = $(this).data("product-id");
-
-        $.ajax({
-            url: "add_to_cart.php",
-            type: "POST",
-            data: { product_id: productId },
-            dataType: "json",
-            success: function(response) {
-                if (response.status === "success") {
-                    $(".cart-badge").text(response.cart_count);
-                    alert(response.message);
-                    updateCartDropdown(response.cart_html);
-                }
-            }
-        });
-    });
-
-    // Update Cart Quantity
-    $(".update-cart").click(function() {
-        var productId = $(this).data("product-id");
-        var action = $(this).data("action");
-
-        $.ajax({
-            url: "update_cart.php",
-            type: "POST",
-            data: { product_id: productId, action: action },
-            dataType: "json",
-            success: function(response) {
-                if (response.status === "success") {
-                    $(".cart-badge").text(response.cart_count);
-                    updateCartDropdown(response.cart_html);
-                }
-            }
-        });
-    });
-
-    // Remove Item from Cart
-    $(".remove-from-cart").click(function() {
-        var productId = $(this).data("product-id");
-
-        $.ajax({
-            url: "remove_from_cart.php",
-            type: "POST",
-            data: { product_id: productId },
-            dataType: "json",
-            success: function(response) {
-                if (response.status === "success") {
-                    $(".cart-badge").text(response.cart_count);
-                    updateCartDropdown(response.cart_html);
-                }
-            }
-        });
-    });
-
-    // Function to update the cart dropdown
-    function updateCartDropdown(cartHtml) {
-        $("#cartDropdown .dropdown-menu").html(cartHtml);
-    }
-});
-</script>
-
 </body>
 </html>
+
+
+
+ 

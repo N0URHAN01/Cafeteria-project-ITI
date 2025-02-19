@@ -176,3 +176,19 @@
     font-size: 18px;
     font-weight: bold;
 }
+.category-nav {
+    margin-bottom: 20px;
+}
+
+.btn-category {
+    background-color: #0d6efd;
+    color: white;
+    margin: 5px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.product-item {
+    display: none; /* Initially hide products */
+}
