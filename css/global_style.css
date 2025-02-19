@@ -1,0 +1,22 @@
+body {
+  color: #566787;
+  background: #f5f5f0 !important;
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container-fluid,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl {
+  width: calc(100% - 250px);
+  margin-left: 250px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.dash-main {
+  padding-top: 50px;
+}

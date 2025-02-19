@@ -33,178 +33,172 @@ if (!$user) {
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <title>Admin Dashboard - user details</title>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Roboto"
-    />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Admin Dashboard - user Details</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 
-
-    <!-- fevicon -->
-    <link rel="icon" href="images/fevicon.png" type="image/gif" />
-    <!--  -->
-    <link href="../../css/adminNavbar.css"   rel="stylesheet" />
+    <!-- favicon -->
+    <link rel="icon" href="../../static_images/favicon.ico" type="image/ico" />
+    <link href="../../css/global_style.css" rel="stylesheet" />
+    <link href="../../css/adminNavbar.css" rel="stylesheet" />
+    <link href="../../css/table.css" rel="stylesheet" />
+    
     <style>
       body {
-        color: #566787;
-        background: linear-gradient(135deg, #e3c6a8, #b08968);
-        font-family: "Roboto", sans-serif;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background: #f5f5f0;
       }
-        .container {
-            max-width: 600px;
-            background: white;
-            padding: 20px;
-            margin-top: 50px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        
+      .sidebar {
+        position: fixed;
+        z-index: 99999;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 250px;
+        background-color: #7e5a3c;
+        color: white;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      }
+      .sidebar .admin-info {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .sidebar .admin-info img {
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+      }
+      .sidebar .admin-info p {
+        margin-top: 10px;
+      }
+      .sidebar a {
+        color: white;
+        text-decoration: none;
+        padding: 10px;
+        display: block;
+        font-size: 16px;
+      }
+      .sidebar a:hover {
+        background-color: #d76f32;
+      }
+      .btn-add-user {
+        background-color: #7e5a3c;
+        color: white;
+        border-radius: 25px;
+        padding: 0.6rem 1.2rem;
+        font-size: 1rem;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+      }
+      .btn-add-user:hover {
+        background-color: #d76f32;
+      }
+      .btn-logout {
+        background-color: #5c3d2e;
+        color: white;
+        border-radius: 25px;
+        padding: 0.6rem 1.2rem;
+        font-size: 1rem;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+      }
+      .btn-logout:hover {
+        background-color: rgb(201, 43, 38);
+      }
       .admin-dropdown {
-    position: relative;
-}
+        position: relative;
+      }
+      .wrapper {
+        width: calc(50% - 250px);
+        margin: 50px auto 20px;
+        text-align: center;
+        padding: 10px 5px;
+        color: rgb(92,91,46);
+        height:500px;
+        background: #fff;
+        box-shadow: 0 0 10px rgba(55, 55, 55, 0.5);
+        border-radius: 4px;
+      }
 
-.admin-info {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+      .header {
+        font-size: 30px;
+        padding: 5px;
+        font-family: "PT Sans Narrow", sans-serif;
+      }
 
-    border-radius: 25px;
-}
-.profile-img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-    border: 2px solid #b08968;
-}
+      .profile-pic {
+        width: 150px;
+        height: 150px;
+        margin: 10px auto;
+        margin-top: -30px; 
+        border-radius: 50%;
+        border: 2px solid #fff;
+        transition: all 0.3s ease-in-out;
+      }
+      .profile-pic:hover {
+        cursor: pointer;
+        transform: translateY(-10px) scale(1.3);
+      }
+      .info {
+        padding-top:4%;
+        padding-left:5%;
 
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 50px;
-    right: 0;
-    background: #fff;
-    border-radius: 8px;
-    list-style: none;
-    padding: 10px 0;
-    width: 70px;
-    text-align: center;
-    min-width:auto !important;
-}
+      }
+      .name {
+        font-size: 22px;
+        font-weight: 500;
+      }
 
-.dropdown-menu li {
-    padding: 5px;
-}
-
-.dropdown-menu li a {
-    text-decoration: none;
-    color: #b08968;
-    font-weight: bold;
-    display:inline-block;
-    width: 100%;
-    text-align:left;
-}
-
-.dropdown-menu li:hover {
-    background: #f4f4f4;
-    cursor: pointer;
-}
-.admin-header .dropdown-menu  li a:hover {
-  color: rgb(75, 24, 18) !important;
-}
-        .profile-img1 {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            display: block;
-            margin: 0 auto 15px;
-            border: 3px solid #b08968;
-        }
-        .user-info {
-            text-align: center;
-        }
-        .user-info h3 {
-            margin-bottom: 10px;
-        }
-        .user-info p {
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-    </style>
-        <script>
-        function toggleDropdown() {
-            var dropdown = document.getElementById("dropdownMenu");
-            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-        }
-    </script>
-</head>
-<body>
-
-<nav class="navbar navbar-expand-lg " style="background-color:#5c3d2e">
-  <a class="navbar-brand" href="#" style="display:inline-block; width:50px; height:50px"><img style="display:inline-block; width:100%; height:100%" src="../../static_images/logo.png" alt=""></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse admin-header " id="navbarSupportedContent">
-    <ul class="navbar-nav w-100  mx-2">
-      <li class="nav-item px-2  active ">
-        <a class="nav-link" href="admin_dashboard.php">Home
-        </a>
-     </li>
-     <li class="nav-item px-2  ">
-        <a class="nav-link" href="products.php">Products</a>
-     </li>
-     <li class="nav-item px-2  ">
-        <a class="nav-link" href="manual_order.php">Manual Order</a>
-     </li>
-     <li class="nav-item px-2  "><a class="nav-link" href="checks.php">Checks</a></li>
-     <li class="nav-item px-2  "><a class="nav-link" href="users.php">Users</a></li>
-     <li class="nav-item px-2  "><a class="nav-link" href="Categories.php">Categories</a></li>
-
-      <li class=" admin-dropdown ml-md-auto">
-        <div class="admin-info" onclick="toggleDropdown()">
-            <img src="../../uploads/users/<?= $admin['profile_image']; ?>" alt="Admin" class="profile-img" />
-            <span><?= htmlspecialchars($admin['name']); ?></span>
+      .username {
+        font-size: 18px;
+        font-weight: 300;
+      }
+      </style>
+  
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="admin-info">
+            <!-- Admin Info (profile image) -->
+            <img src="../../uploads/<?= htmlspecialchars($admin['profile_image']); ?>" alt="Admin Image">
+            <p><?= htmlspecialchars($admin['name']); ?></p>
         </div>
-        <ul class="dropdown-menu" id="dropdownMenu">
-            <li><a href="../../controllers/admin/logoutController.php">Logout</a></li>
-        </ul>
-     </li>
-    </ul>
-  </div>
-</nav>
-    <div class="container">
-        <h2 class="text-center">User Details</h2>
-        <img src="../../uploads/users/<?= htmlspecialchars($user['profile_image']); ?>" alt="User Image" class="profile-img">
-        <div class="user-info">
-            <h3><?= htmlspecialchars($user['name']); ?></h3>
-            <p><strong>Ext:</strong> <?= htmlspecialchars($user['ext']); ?></p>
-            <p><strong>Room Number:</strong> <?= htmlspecialchars($user['room_number'] ?? 'N/A'); ?></p>
-        </div>
+        <a href="admin_dashboard.php">Home</a>
+        <a href="products.php">Product</a>
+        <a href="users.php">Users</a>
+        <a href="ManualOrder.php">Manual Order</a>
+        
+        <a href="#">Checks</a>
+        <a href="Categories.php">Categories</a>
+
+        <form method="POST" action="../../controllers/admin/logout.php">
+            <button type="submit" class="btn btn-logout w-100 mt-3">Logout</button>
+        </form>
     </div>
 
+    <div class="main-content">
+    
+      <div class="wrapper">
+      <div class="profile-pic" style="background:url('../../uploads/users/<?= htmlspecialchars($user['profile_image']); ?>');background-size: cover;">
+      </div>
+      <div class="info">
+        <div class="name"><?= htmlspecialchars($user['name']); ?></div>
+        <div class="username pt-2">Ext: <?= htmlspecialchars($user['ext']); ?></div>
+        <div class="pt-2">Room: <?= htmlspecialchars($user['room_id']); ?></div>
+      </div>
+      </div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-
 </body>
 </html>

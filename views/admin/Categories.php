@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once __DIR__ . "/../../classes/db/Database.php";
 require_once __DIR__ . "/../../controllers/admin/categoryController.php";
 require_once __DIR__ . "/../../middleware/authMiddleware.php";
@@ -24,137 +23,50 @@ $categories = $categoryController->getCategories();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Admin Dashboard - Categories</title>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Roboto"
-    />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-     <!-- fevicon -->
-     <link rel="icon" href="images/fevicon.png" type="image/gif" />
-    <!-- navbar style sheet -->
-    <link href="../../css/adminNavbar.css"   rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 
-    <style>
-      body {
-        color: #566787;
-        background: linear-gradient(135deg, #e3c6a8, #b08968);
-        font-family: "Roboto", sans-serif;
-      }
-      .table-responsive {
-        margin: 30px 0;
-      }
-      .table-wrapper {
-        min-width: 1000px;
-        background: #fff;
-        padding: 20px;
-        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-      }
-      .table-title {
-        padding-bottom: 10px;
-        margin: 0 0 10px;
-        min-width: 100%;
-      }
-      .table-title h2 {
-        margin: 8px 0 0;
-        font-size: 22px;
-      }
-      table.table tr th,
-      table.table tr td {
-        border-color: #e9e9e9;
-      }
-      table.table-striped tbody tr:nth-of-type(odd) {
-        background-color: #fcfcfc;
-      }
-      table.table-striped.table-hover tbody tr:hover {
-        background: #f5f5f5;
-      }
-      table.table th i {
-        font-size: 13px;
-        margin: 0 5px;
-        cursor: pointer;
-      }
-      table.table td:last-child {
-        width: 130px;
-      }
-      table.table td a {
-        color: #a0a5b1;
-        display: inline-block;
-        margin: 0 5px;
-      }
-      table.table td a.view {
-        color: #03a9f4;
-      }
-      table.table td a.edit {
-        color: #ffc107;
-      }
-      table.table td a.delete {
-        color: #e34724;
-      }
-      table.table td i {
-        font-size: 19px;
-      }
-    </style>
+    <!-- favicon -->
+    <link rel="icon" href="../../static_images/favicon.ico" type="image/ico" />
+    <link href="../../css/global_style.css" rel="stylesheet" />
+    <link href="../../css/adminNavbar.css" rel="stylesheet" />
+    <link href="../../css/table.css" rel="stylesheet" />
+    
     <script>
       $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
       });
-      function toggleDropdown() {
-          var dropdown = document.getElementById("dropdownMenu");
-          dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-      }
     </script>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg " style="background-color:#5c3d2e">
-  <a class="navbar-brand" href="#" style="display:inline-block; width:50px; height:50px"><img style="display:inline-block; width:100%; height:100%" src="../../static_images/logo.png" alt=""></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
 
-  <div class="collapse navbar-collapse admin-header " id="navbarSupportedContent">
-    <ul class="navbar-nav w-100  mx-2">
-      <li class="nav-item px-2  active ">
-        <a class="nav-link" href="admin_dashboard.php">Home
-        </a>
-     </li>
-     <li class="nav-item px-2  ">
-        <a class="nav-link" href="products.php">Products</a>
-     </li>
-     <li class="nav-item px-2  ">
-        <a class="nav-link" href="manual_order.php">Manual Order</a>
-     </li>
-     <li class="nav-item px-2  "><a class="nav-link" href="checks.php">Checks</a></li>
-     <li class="nav-item px-2  "><a class="nav-link" href="users.php">Users</a></li>
-     <li class="nav-item px-2  "><a class="nav-link" href="Categories.php">Categories</a></li>
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="admin-info">
+        <!-- Admin Info (profile image) -->
+        <img src="../../uploads/<?= htmlspecialchars($admin['profile_image']); ?>" alt="Admin Image">
+        <p><?= htmlspecialchars($admin['name']); ?></p>
+    </div>
+    <a href="admin_dashboard.php">Home</a>
+    <a href="products.php">Product</a>
+    <a href="users.php">Users</a>
+    <a href="ManualOrder.php">Manual Order</a>
+    
+    <a href="#">Checks</a>
+    <a href="Categories.php">Categories</a>
 
-      <li class=" admin-dropdown ml-md-auto">
-        <div class="admin-info" onclick="toggleDropdown()">
-            <img src="../../uploads/users/<?= $admin['profile_image']; ?>" alt="Admin" class="profile-img" />
-            <span><?= htmlspecialchars($admin['name']); ?></span>
-        </div>
-        <ul class="dropdown-menu" id="dropdownMenu">
-            <li><a href="../../controllers/admin/logoutController.php">Logout</a></li>
-        </ul>
-     </li>
-    </ul>
-  </div>
-</nav>
-   
+    <form method="POST" action="../../controllers/admin/logout.php">
+        <button type="submit" class="btn btn-logout w-100 mt-3">Logout</button>
+    </form>
+</div>
+<div class="main-content">
+
 <div class="container-xl">
       <div class="table-responsive">
         <div class="table-wrapper">
@@ -192,6 +104,7 @@ $categories = $categoryController->getCategories();
 <!-- add caregoryy form start -->
 <?php  include 'addCategory.php'; ?>
 <!-- add category form end -->
+</div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>

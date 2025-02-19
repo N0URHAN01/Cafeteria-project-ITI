@@ -1,6 +1,6 @@
 <?php
 require_once '../../classes/db/Database.php';
-
+require_once '../../utils/password-utils.php';
 class UsersController {
     private $conn;
 
@@ -25,32 +25,35 @@ class UsersController {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // Add new user
-    public function addUser($name, $email, $password, $profile_image, $room_id, $ext) {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $query = "INSERT INTO users (name, email, password, profile_image, room_id, ext) 
-                  VALUES (?, ?, ?, ?, ?, ?)";
-        $stmt = $this->conn->prepare($query);
-        return $stmt->execute([$name, $email, $hashed_password, $profile_image, $room_id, $ext]);
-    }
-
     // Update user
-    public function updateUser($user_id, $name, $email, $room_id, $ext, $profile_image = null) {
-        $query = "UPDATE users SET name = ?, email = ?, room_id = ?, ext = ?";
+    public function updateUser($user_id, $name, $email,$password, $ext, $profile_image = null, $room_id) {
+
+        // Check if the room_id exists before updating the user
+        if (!empty($room_id)) {
+            $stmt = $this->conn->prepare("SELECT room_id FROM rooms WHERE room_id = ?");
+            $stmt->execute([$room_id]);
+            
+            $room_exists = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$room_exists) {
+                die("Error: The selected room does not exist.");
+            }
+        }
+
+        $query = "UPDATE users SET name = ?, email = ?, room_id = ?, ext = ?, password = ?";
         if ($profile_image) {
             $query .= ", profile_image = ?";
         }
         $query .= " WHERE user_id = ?";
-        
         $stmt = $this->conn->prepare($query);
-        $params = [$name, $email, $room_id, $ext];
+        $params = [$name, $email, $room_id, $ext, $password];
         if ($profile_image) {
             $params[] = $profile_image;
         }
         $params[] = $user_id;
-        
+
         return $stmt->execute($params);
-    }
+   }
 
     // Delete user
     public function deleteUser($user_id) {
@@ -59,29 +62,37 @@ class UsersController {
         return $stmt->execute([$user_id]);
     }
 }
-
 // Database connection
 $database = new Database();
 $db = $database->connect();
 $usersController = new UsersController($db);
 
-// Handling requests
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['action'])) {
-        switch ($_POST['action']) {
-            case 'add':
-                $usersController->addUser($_POST['name'], $_POST['email'], $_POST['password'], $_FILES['profile_image']['name'], $_POST['room_id'], $_POST['ext']);
-                header("Location: ../views/users.php");
-                break;
-            case 'edit':
-                $usersController->updateUser($_POST['user_id'], $_POST['name'], $_POST['email'], $_POST['room_id'], $_POST['ext'], $_FILES['profile_image']['name'] ?? null);
-                header("Location: ../views/users.php");
-                break;
-            case 'delete':
-                $usersController->deleteUser($_POST['user_id']);
-                header("Location: ../views/users.php");
-                break;
-        }
-    }
+// Handling edit , delete
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] == 'delete') {
+    $usersController->deleteUser($_POST['user_id']);
+    header("Location: ../../views/admin/users.php");
 }
+
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["update_user"])) {
+    $user_id = $_POST["user_id"];
+    $name = $_POST["name"];
+    $email = $_POST["email"];
+    $ext = $_POST["ext"];
+    $room_id = $_POST["room_id"];
+    $password = !empty($_POST["password"]) ?  hash_password($_POST["password"],$email) : null;
+    // Handle profile image upload
+    if (!empty($_FILES["profile_image"]["name"])) {
+        $targetDir = "../../uploads/users/";
+        $fileName = basename($_FILES["profile_image"]["name"]);
+        $targetFilePath = $targetDir . $fileName;
+        move_uploaded_file($_FILES["profile_image"]["tmp_name"], $targetFilePath);
+        $profile_image = $fileName;
+    } else {
+        $profile_image = null;
+    }
+    // Call update function
+    $usersController->updateUser($user_id, $name, $email, $password, $ext, $profile_image, $room_id);
+    header("Location: ../../views/admin/users.php");
+}
+
 ?>
