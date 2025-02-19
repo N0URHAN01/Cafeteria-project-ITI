@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     $errors_query = http_build_query(['errors' => $errors]);
-    header("Location: ../../views/{$who_is_placing_order}/place_order.php?{$errors_query}");
+    header("Location: ../../views/{$who_is_placing_order}/ManualOrder.php?{$errors_query}");
     exit;
 }
 ?>
