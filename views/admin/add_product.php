@@ -70,7 +70,7 @@ $errors = isset($_GET['errors']) ? json_decode(urldecode($_GET['errors']), true)
     <a href="users.php">Users</a>
     <a href="#">Manual Order</a>
     <a href="#">Checks</a>
-    <a href="categories.php">Categories</a>
+    <a href="Categories.php">Categories</a>
     <form method="POST" action="../../controllers/admin/logout.php">
         <button type="submit" class="btn btn-danger w-100 mt-3">Logout</button>
     </form>
