@@ -39,7 +39,7 @@ session_start();
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="profile.php"><i class="fas fa-user"></i> Profile</a></li>
                     <li>
-                        <form method="POST" action="../../controllers/user/logout.php">
+                        <form method="POST" action="../../controllers/logout.php">
                             <button type="submit" class="dropdown-item text-danger"><i class="fas fa-sign-out-alt"></i> Logout</button>
                         </form>
                     </li>
