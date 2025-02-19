@@ -45,7 +45,6 @@ class UsersController {
             $query .= ", profile_image = ?";
         }
         $query .= " WHERE user_id = ?";
-
         $stmt = $this->conn->prepare($query);
         $params = [$name, $email, $room_id, $ext, $password];
         if ($profile_image) {
@@ -80,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["update_user"])) {
     $email = $_POST["email"];
     $ext = $_POST["ext"];
     $room_id = $_POST["room_id"];
-    $password = !empty($_POST["password"]) ? hash_password($_POST["password"], PASSWORD_DEFAULT) : null;
+    $password = !empty($_POST["password"]) ?  hash_password($_POST["password"],$email) : null;
     // Handle profile image upload
     if (!empty($_FILES["profile_image"]["name"])) {
         $targetDir = "../../uploads/users/";
