@@ -66,7 +66,7 @@ $error_message = $_GET['error'] ?? null;
                     <span><?= htmlspecialchars($admin['name']); ?></span>
                 </div>
                 <ul class="dropdown-menu" id="dropdownMenu">
-                    <li><a href="../../controllers/admin/logout.php">Logout</a></li>
+                    <li><a href="../../controllers/logout.php">Logout</a></li>
                 </ul>
             </li>
         </ul>

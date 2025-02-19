@@ -180,7 +180,7 @@ if (!$user) {
         <a href="#">Checks</a>
         <a href="Categories.php">Categories</a>
 
-        <form method="POST" action="../../controllers/admin/logout.php">
+        <form method="POST" action="../../controllers/logout.php">
             <button type="submit" class="btn btn-logout w-100 mt-3">Logout</button>
         </form>
     </div>
