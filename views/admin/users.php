@@ -1,14 +1,12 @@
 <?php
 require_once '../../classes/db/Database.php';
-require_once '../../controllers/admin/usersController.php';
+require_once '../../classes/admin/users.php';
 require_once __DIR__ . "/../../middleware/authMiddleware.php";
 
 // // Check if admin is logged in
 requireAuthAdmin();
 
-// Create database connection
 $database = new Database();
-// Ensure connect() is used
 $db = $database->connect(); 
 
 // Fetch admin details
@@ -17,11 +15,11 @@ $stmt = $db->prepare("SELECT name, profile_image FROM admins WHERE admin_id = :a
 $stmt->execute(['admin_id' => $admin_id]);
 $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Pass the database connection to UsersController
-$usersController = new UsersController($db);
+// Pass the database connection to Users class
+$UsersModal = new Users($db);
 
 // Fetch all users
-$users = $usersController->getAllUsers();
+$users = $UsersModal->getAllUsers();
 ?>
 
 <!DOCTYPE html>
@@ -55,7 +53,6 @@ $users = $usersController->getAllUsers();
         background-color: #7e5a3c;
         color: white;
         box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-        /* padding-top: 30px; */
       }
       .sidebar .admin-info {
         text-align: center;
@@ -162,7 +159,7 @@ $users = $usersController->getAllUsers();
               </thead>
               <tbody>
                 <?php
-                $users = $usersController->getAllUsers();
+                $users = $UsersModal->getAllUsers();
                 foreach ($users as $user) {
                     echo "<tr>
                         <td>{$user['user_id']}</td>

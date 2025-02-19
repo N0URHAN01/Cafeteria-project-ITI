@@ -2,7 +2,7 @@
 // session_start();
 require_once __DIR__ . "/../../classes/db/Database.php";
 require_once __DIR__ . "/../../classes/admin/room.php";
-require_once '../../controllers/admin/usersController.php';
+require_once '../../classes/admin/users.php';
 
 require_once __DIR__ . "/../../middleware/authMiddleware.php";
 // require_once '../../classes/admin/users.php';
@@ -13,7 +13,7 @@ requireAuthAdmin();
 
 $db = new Database();
 $conn = $db->connect();
-$usersController = new usersController($conn);
+$usersModal = new Users($conn);
 
 // Fetch admin details
 $admin_id = $_SESSION["admin_id"];
@@ -29,7 +29,7 @@ if (!isset($_GET['user_id']) || empty($_GET['user_id'])) {
 }
 $user_id = $_GET['user_id'];
 // Fetch single user
-$user = $usersController->getUserById($user_id);
+$user = $usersModal->getUserById($user_id);
 if (!$user) {
     die("User not found.");
 }

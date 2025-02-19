@@ -1,12 +1,12 @@
 <?php
 require_once __DIR__ . "/../../middleware/authMiddleware.php";
 require_once __DIR__ . "/../../classes/db/Database.php";
-require_once __DIR__ . "/../../controllers/admin/categoryController.php";
+require_once __DIR__ . "/../../classes/admin/category.php";
 
 session_start();
 requireAuthUser();
 
-$categoryController = new CategoryController();
+$categoryController = new Category();
 $categories = $categoryController->getCategories();
 ?>
 
