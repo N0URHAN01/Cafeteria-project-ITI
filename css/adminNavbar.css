@@ -1,49 +1,48 @@
-.admin-header {
-  /* display: flex;
-  align-items: center;
-  justify-content: space-between; */
-  padding: 10px;
-  /* background: #5c3d2e; */
+.sidebar {
+  position: fixed;
+  z-index: 99999;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 250px;
+  background-color: #7e5a3c;
   color: white;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  /* padding-top: 30px; */
 }
-.admin-info {
-  display: flex;
-  align-items: center;
+.sidebar .admin-info {
+  text-align: center;
+  margin-bottom: 20px;
 }
-.admin-info img {
-  width: 40px;
-  height: 40px;
+.sidebar .admin-info img {
   border-radius: 50%;
-  margin-right: 10px;
+  width: 60px;
+  height: 60px;
 }
-.logout-btn {
-  background: red;
+.sidebar .admin-info p {
+  margin-top: 10px;
+}
+.sidebar a {
   color: white;
-  border: none;
-  padding: 8px 15px;
-  cursor: pointer;
+  text-decoration: none;
+  padding: 10px;
+  display: block;
+  font-size: 16px;
 }
-
-.admin-header li a.nav-link {
-  color: white !important;
+.sidebar a:hover {
+  background-color: #d76f32;
 }
-.admin-header li a:hover {
-  color: rgb(75, 24, 18) !important;
-}
-.navbar-toggler {
-  border-color: white;
-}
-
-.navbar-toggler-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='white' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-}
-
-.admin-info {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-
+.btn-logout {
+  background-color: #5c3d2e;
+  color: white;
   border-radius: 25px;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+.btn-logout:hover {
+  background-color: rgb(201, 43, 38);
 }
 
 .profile-img {
@@ -52,43 +51,4 @@
   border-radius: 50%;
   margin-right: 10px;
   border: 2px solid #b08968;
-}
-
-.admin-dropdown {
-  position: relative;
-}
-
-.dropdown-menu {
-  display: none;
-  position: absolute;
-  top: 50px;
-  right: 0;
-  background: #fff;
-  border-radius: 8px;
-  list-style: none;
-  padding: 10px 0;
-  width: 70px;
-  text-align: center;
-  min-width: auto !important;
-}
-
-.dropdown-menu li {
-  padding: 5px;
-}
-
-.dropdown-menu li a {
-  text-decoration: none;
-  color: #b08968;
-  font-weight: bold;
-  display: inline-block;
-  width: 100%;
-  text-align: left;
-}
-
-.dropdown-menu li:hover {
-  background: #f4f4f4;
-  cursor: pointer;
-}
-.admin-header .dropdown-menu li a:hover {
-  color: rgb(75, 24, 18) !important;
 }
