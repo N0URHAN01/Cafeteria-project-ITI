@@ -37,11 +37,6 @@ $categories = $categoryController->getCategories();
     <link href="../../css/adminNavbar.css" rel="stylesheet" />
     <link href="../../css/table.css" rel="stylesheet" />
     
-    <script>
-      $(document).ready(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-      });
-    </script>
 </head>
 <body>
 

@@ -105,11 +105,6 @@ $users = $UsersModal->getAllUsers();
         position: relative;
       }
       </style>
-    <script>
-      $(document).ready(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-      });
-    </script>
   </head>
   <body>
     <!-- Sidebar -->
