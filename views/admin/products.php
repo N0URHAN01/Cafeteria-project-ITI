@@ -59,7 +59,7 @@ $error_message = $_GET['error'] ?? null;
             <li class="nav-item"><a class="nav-link" href="admin_dashboard.php">Home</a></li>
             <li class="nav-item"><a class="nav-link" href="products.php">Products</a></li>
             <li class="nav-item"><a class="nav-link" href="users.php">Users</a></li>
-            <li class="nav-item"><a class="nav-link" href="categories.php">Categories</a></li>
+            <li class="nav-item"><a class="nav-link" href="Categories.php">Categories</a></li>
             <li class="ml-auto">
                 <div class="admin-info" onclick="toggleDropdown()">
                     <img src="../../uploads/<?= htmlspecialchars($admin['profile_image']); ?>" class="profile-img" />
@@ -82,6 +82,9 @@ $error_message = $_GET['error'] ?? null;
                     <div class="col-sm-8"><h2>Product <b>List</b></h2></div>
                     <div class="col-sm-4 text-right">
                         <a href="add_product.php" class="btn btn-success"><i class="fa fa-plus"></i> Add Product</a>
+                        <a href="Categories.php" class="btn btn-primary">
+                      <i class="fa fa-plus"></i> Add New Category
+                        </a>
                     </div>
                 </div>
             </div>
