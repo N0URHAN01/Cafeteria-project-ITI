@@ -1,3 +1,8 @@
+<?php
+$errors = isset($_GET['errors']) ? json_decode(urldecode($_GET['errors']), true) : [];
+$old_data = isset($_GET['old_data']) ? json_decode(urldecode($_GET['old_data']), true) : [];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,6 +60,14 @@
             border: none;
             font-size: 14px;
         }
+        .error-message {
+            color: #ffdddd;
+            background-color: #d9534f;
+            padding: 8px;
+            border-radius: 5px;
+            margin: 10px 30px;
+            font-size: 14px;
+        }
         .login-btn {
             background: #5c3d2e;
             color: #fff;
@@ -86,10 +99,21 @@
     <div class="login-container">
         <img src="loginimg.jpeg" alt="Coffee">
         <h2>Sign In</h2>
+        
+        <!-- Display Errors -->
+        <?php if (!empty($errors)): ?>
+            <div class="error-message">
+                <?php foreach ($errors as $error): ?>
+                    <p><?php echo htmlspecialchars($error); ?></p>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+        
         <form method="POST" action="/controllers/admin/adminAuthController.php">
             <div class="input-group">
                 <label>Email Address:</label>
-                <input type="email" name="email" placeholder="Enter email" required>
+                <input type="email" name="email" placeholder="Enter email" 
+                    value="<?php echo isset($old_data['email']) ? htmlspecialchars($old_data['email']) : ''; ?>" required>
             </div>
             <div class="input-group">
                 <label>Password:</label>
@@ -97,7 +121,6 @@
             </div>
             <button type="submit" class="login-btn">Sign In</button>
         </form>
-        
     </div>
 </body>
 </html>
