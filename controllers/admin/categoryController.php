@@ -33,6 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["category_name"])) {
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] == 'delete') {
     $categoryController->deleteCategory($_POST['category_id']);
-    header("Location: ../../views/admin/categories.php");
+    header("Location: ../../views/admin/Categories.php");
 }
 
