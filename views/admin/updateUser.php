@@ -46,9 +46,10 @@ if (!$user) {
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="../../css/global_style.css"   rel="stylesheet" />
-
-    <link href="../../css/adminNavbar.css"   rel="stylesheet" />
+    <!-- favicon -->
+    <link rel="icon" href="../../static_images/favicon.ico" type="image/ico" />
+    <link href="../../css/global_style.css" rel="stylesheet" />
+    <link href="../../css/adminNavbar.css" rel="stylesheet" />
 
     <style>
 
@@ -65,7 +66,7 @@ if (!$user) {
         background-color: #d76f32;
       }
         .main-content {
-            margin-left: 250px;
+            /* margin-left: 250px; */
             padding: 20px;
             height: 100%;
         }
@@ -146,21 +147,14 @@ if (!$user) {
 
     </style>
 
+    
 </head>
 <body>
 
-<!-- Sidebar -->
-<div class="sidebar pt-3">
-<a class="navbar-brand" href="#" style="display:inline-block; width:60px; padding:0 !important; text-align:center"><img style="display:inline-block; width:100%; height:100%" src="../../static_images/logo.png" alt=""></a>
 
-    <a href="admin_dashboard.php">Home</a>
-    <a href="products.php">Product</a>
-    <a href="users.php">Users</a>
-    <a href="#">Manual Order</a>
-    
-    <a href="#">Checks</a>
-    <a href="Categories.php">Categories</a>
-</div>
+<?php include "navbar.php"; ?>
+
+
 
 
 <!-- Main Content -->
@@ -208,11 +202,17 @@ if (!$user) {
 
                                 <!-- Profile Image (Preview Current Image) -->
                                 <div class="input-container">
-                                    <label for="profile_image" class="form-label">Profile Image</label>
+                                <label for="profile_image" class="form-label">Profile Image</label>
+                                    
                                     <?php if (!empty($user['profile_image'])): ?>
                                         <img src="../../uploads/users/<?= htmlspecialchars($user['profile_image']); ?>" alt="User Image" width="80" height="80">
                                     <?php endif; ?>
+
                                     <input type="file" name="profile_image" class="form-control form-control-sm" id="profile_image">
+
+                                    <!-- Hidden input to store old image name -->
+                                    <input type="hidden" name="old_profile_image" value="<?= htmlspecialchars($user['profile_image']); ?>">
+                                    
                                     <i class="fas fa-image"></i>
                                 </div>
 

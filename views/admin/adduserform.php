@@ -31,53 +31,21 @@ $all_rooms = $room->get_all_rooms();
     <title>Admin Dashboard - Add User</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+     <!-- favicon -->
+    <link rel="icon" href="../../static_images/favicon.ico" type="image/ico" />
+    <link href="../../css/global_style.css" rel="stylesheet" />
+    <link href="../../css/adminNavbar.css" rel="stylesheet" />
     <style>
-        body {
-            background-color: #F6E2B3; 
-        }
-
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            width: 250px;
-            background-color: #7E5A3C; 
-            color: white;
-            padding-top: 30px;
-        }
-        .sidebar .admin-info {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .sidebar .admin-info img {
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-        }
-        .sidebar .admin-info p {
-            margin-top: 10px;
-        }
-        .sidebar a {
-            color: white;
-            text-decoration: none;
-            padding: 10px;
-            display: block;
-            font-size: 16px;
-        }
-        .sidebar a:hover {
-            background-color: #D76F32; 
-        }
         .main-content {
-            margin-left: 250px;
+            /* margin-left: 250px; */
             padding: 20px;
             height: 100%;
         }
 
         
         .btn-add-user {
-            background-color: #7E5A3C; 
-            color: white;
+            background-color: #7E5A3C !important; 
+            color: white !important; 
             border-radius: 25px;
             padding: 0.6rem 1.2rem;
             font-size: 1rem;
@@ -85,20 +53,8 @@ $all_rooms = $room->get_all_rooms();
             transition: background-color 0.3s ease;
         }
         .btn-add-user:hover {
-            background-color: #D76F32; 
+            background-color: #D76F32 !important;  
         } 
-        .btn-logout {
-            background-color: #5C3D2E; 
-            color: white;
-            border-radius: 25px;
-            padding: 0.6rem 1.2rem;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-        .btn-logout:hover {
-            background-color:rgb(201, 43, 38); 
-        }
         .custom-card {
             border-radius: 15px;
             padding: 20px;
@@ -170,36 +126,11 @@ $all_rooms = $room->get_all_rooms();
            }
         }
     </style>
-        <script>
-
-function toggleDropdown() {
-    var dropdown = document.getElementById("dropdownMenu");
-    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-}
-
-    </script>
 </head>
 <body>
 
-<!-- Sidebar -->
-<div class="sidebar">
-    <div class="admin-info">
-        <!-- Admin Info (profile image) -->
-        <img src="../../uploads/<?= htmlspecialchars($admin['profile_image']); ?>" alt="Admin Image">
-        <p><?= htmlspecialchars($admin['name']); ?></p>
-    </div>
-    <a href="ManualOrder.php">Home</a>
-    <a href="products.php">Product</a>
-    <a href="users.php">Users</a>
-    <a href="ManualOrder.php">Manual Order</a>
-    <a href="AllOrders.php">All Orders</a>
-    <a href="checks_view.php">Checks</a>
-    <a href="Categories.php">Categories</a>
 
-    <form method="POST" action="../../controllers/logout.php">
-        <button type="submit" class="btn btn-logout w-100 mt-3">Logout</button>
-    </form>
-</div>
+<?php include "navbar.php"; ?>
 
 <!-- Main Content -->
 <div class="main-content">

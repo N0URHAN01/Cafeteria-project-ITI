@@ -46,7 +46,6 @@ if (!$user) {
     <link rel="icon" href="../../static_images/favicon.ico" type="image/ico" />
     <link href="../../css/global_style.css" rel="stylesheet" />
     <link href="../../css/adminNavbar.css" rel="stylesheet" />
-    <link href="../../css/table.css" rel="stylesheet" />
     
     <style>
       body {
@@ -56,38 +55,8 @@ if (!$user) {
         padding: 0;
         background: #f5f5f0;
       }
-      .sidebar {
-        position: fixed;
-        z-index: 99999;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        width: 250px;
-        background-color: #7e5a3c;
-        color: white;
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-      }
-      .sidebar .admin-info {
-        text-align: center;
-        margin-bottom: 20px;
-      }
-      .sidebar .admin-info img {
-        border-radius: 50%;
-        width: 60px;
-        height: 60px;
-      }
-      .sidebar .admin-info p {
-        margin-top: 10px;
-      }
-      .sidebar a {
-        color: white;
-        text-decoration: none;
-        padding: 10px;
-        display: block;
-        font-size: 16px;
-      }
-      .sidebar a:hover {
-        background-color: #d76f32;
+      .custom-card {
+        
       }
       .btn-add-user {
         background-color: #7e5a3c;
@@ -117,15 +86,15 @@ if (!$user) {
         position: relative;
       }
       .wrapper {
-        width: calc(50% - 250px);
-        margin: 50px auto 20px;
+        width: 40% ;
         text-align: center;
-        padding: 10px 5px;
         color: rgb(92,91,46);
-        height:500px;
         background: #fff;
         box-shadow: 0 0 10px rgba(55, 55, 55, 0.5);
-        border-radius: 4px;
+        border-radius: 15px;
+        padding: 20px;
+        height: auto;
+        margin: 30px auto 20px;
       }
 
       .header {
@@ -163,27 +132,12 @@ if (!$user) {
       }
       </style>
   
-  </head>
-  <body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="admin-info">
-            <!-- Admin Info (profile image) -->
-            <img src="../../uploads/<?= htmlspecialchars($admin['profile_image']); ?>" alt="Admin Image">
-            <p><?= htmlspecialchars($admin['name']); ?></p>
-        </div>
-        <a href="admin_dashboard.php">Home</a>
-        <a href="products.php">Product</a>
-        <a href="users.php">Users</a>
-        <a href="ManualOrder.php">Manual Order</a>
-        
-        <a href="#">Checks</a>
-        <a href="Categories.php">Categories</a>
+</head>
+<body>
 
-        <form method="POST" action="../../controllers/logout.php">
-            <button type="submit" class="btn btn-logout w-100 mt-3">Logout</button>
-        </form>
-    </div>
+
+<?php include "navbar.php"; ?>
+
 
     <div class="main-content">
     

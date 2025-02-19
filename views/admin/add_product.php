@@ -44,7 +44,8 @@ $errors = isset($_GET['errors']) ? json_decode(urldecode($_GET['errors']), true)
         .sidebar .admin-info p { margin-top: 10px; }
         .sidebar a { color: white; text-decoration: none; padding: 10px; display: block; font-size: 16px; }
         .sidebar a:hover { background-color: #D76F32; }
-        .main-content { margin-left: 250px; padding: 20px; height: 100%; }
+        .main-content { /*margin-left: 250px;*/
+             padding: 20px; height: 100%; }
         .btn-add-product { background-color: #7E5A3C; color: white; border-radius: 25px; }
         .btn-add-product:hover { background-color: #D76F32; }
         .custom-card { border-radius: 15px; padding: 20px; width: 60%; max-width: 100%; margin: auto; }
