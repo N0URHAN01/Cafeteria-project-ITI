@@ -35,7 +35,15 @@ $availableProducts = array_filter($products, function($product) {
 <body>
     <div class="container mt-5">
         <h2 class="mb-4">Manual Order</h2>
-        
+        <?php if (isset($_GET['errors']) && is_array($_GET['errors'])): ?>
+            <div class="alert alert-danger">
+        <ul>
+            <?php foreach ($_GET['errors'] as $error): ?>
+                <li><?= htmlspecialchars($error); ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>
         <!-- User Selection -->
         <form method="POST" action="../../controllers/order/place_order.php">
             <label for="userSelect" class="form-label">Add to User:</label>
