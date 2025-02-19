@@ -1,6 +1,6 @@
 <?php
 require_once '../../classes/db/Database.php';
-require_once '../../controllers/admin/usersController.php';
+require_once '../../classes/admin/users.php';
 require_once __DIR__ . "/../../middleware/authMiddleware.php";
 
 // Check if admin is logged in
@@ -21,10 +21,10 @@ if (!isset($_GET['user_id']) || empty($_GET['user_id'])) {
 }
 $user_id = $_GET['user_id'];
 
-$usersController = new UsersController($conn);
+$usersModal = new Users($conn);
 
 // Fetch single user
-$user = $usersController->getUserById($user_id);
+$user = $usersModal->getUserById($user_id);
 
 if (!$user) {
     die("User not found.");
