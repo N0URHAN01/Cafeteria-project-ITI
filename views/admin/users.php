@@ -39,73 +39,7 @@ $users = $UsersModal->getAllUsers();
     <link href="../../css/adminNavbar.css" rel="stylesheet" />
     <link href="../../css/table.css" rel="stylesheet" />
     
-    <style>
-      body {
-        background: #f5f5f0;
-      }
-      .sidebar {
-        position: fixed;
-        z-index: 99999;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        width: 250px;
-        background-color: #7e5a3c;
-        color: white;
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-      }
-      .sidebar .admin-info {
-        text-align: center;
-        margin-bottom: 20px;
-      }
-      .sidebar .admin-info img {
-        border-radius: 50%;
-        width: 60px;
-        height: 60px;
-      }
-      .sidebar .admin-info p {
-        margin-top: 10px;
-      }
-      .sidebar a {
-        color: white;
-        text-decoration: none;
-        padding: 10px;
-        display: block;
-        font-size: 16px;
-      }
-      .sidebar a:hover {
-        background-color: #d76f32;
-      }
-      .btn-add-user {
-        background-color: #7e5a3c;
-        color: white;
-        border-radius: 25px;
-        padding: 0.6rem 1.2rem;
-        font-size: 1rem;
-        font-weight: bold;
-        transition: background-color 0.3s ease;
-      }
-      .btn-add-user:hover {
-        background-color: #d76f32;
-      }
-      .btn-logout {
-        background-color: #5c3d2e;
-        color: white;
-        border-radius: 25px;
-        padding: 0.6rem 1.2rem;
-        font-size: 1rem;
-        font-weight: bold;
-        transition: background-color 0.3s ease;
-      }
-      .btn-logout:hover {
-        background-color: rgb(201, 43, 38);
-      }
-
-      .admin-dropdown {
-        position: relative;
-      }
-      </style>
-  </head>
+</head>
   <body>
     <!-- Sidebar -->
     <div class="sidebar">
