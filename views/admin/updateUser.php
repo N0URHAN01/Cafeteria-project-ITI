@@ -1,15 +1,15 @@
 <?php
-// session_start();
 require_once __DIR__ . "/../../classes/db/Database.php";
 require_once __DIR__ . "/../../classes/admin/room.php";
 require_once '../../classes/admin/users.php';
 
 require_once __DIR__ . "/../../middleware/authMiddleware.php";
+// Check if admin is logged in
+requireAuthAdmin();
 // require_once '../../classes/admin/users.php';
 $room = new Room();
 
-// Check if admin is logged in
-requireAuthAdmin();
+
 
 $db = new Database();
 $conn = $db->connect();
@@ -194,15 +194,15 @@ if (!$user) {
 
                                 <!-- Password (optional update) -->
                                 <div class="input-container">
-                                    <label for="password" class="form-label">New Password (Leave blank if unchanged)</label>
-                                    <input type="password" name="password" class="form-control form-control-sm" id="password" placeholder=" ">
+                                    <label for="password" class="form-label">New Password</label>
+                                    <input type="password" name="password" class="form-control form-control-sm" id="password" placeholder=" " required>
                                     <i class="fas fa-lock"></i>
                                 </div>
 
                                 <!-- Extension -->
                                 <div class="input-container">
                                     <label for="ext" class="form-label">Extension</label>
-                                    <input type="text" name="ext" class="form-control form-control-sm" id="ext" placeholder=" " value="<?= htmlspecialchars($user['ext']); ?>">
+                                    <input type="text" name="ext" class="form-control form-control-sm" id="ext" placeholder=" " value="<?= htmlspecialchars($user['ext']); ?>" required>
                                     <i class="fas fa-phone"></i>
                                 </div>
 
