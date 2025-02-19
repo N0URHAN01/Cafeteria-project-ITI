@@ -41,24 +41,7 @@ $categories = $categoryController->getCategories();
 <body>
 
 
-<!-- Sidebar -->
-<div class="sidebar">
-    <div class="admin-info">
-        <!-- Admin Info (profile image) -->
-        <img src="../../uploads/<?= htmlspecialchars($admin['profile_image']); ?>" alt="Admin Image">
-        <p><?= htmlspecialchars($admin['name']); ?></p>
-    </div>
-    <a href="admin_dashboard.php">Home</a>
-    <a href="products.php">Product</a>
-    <a href="users.php">Users</a>
-    <a href="ManualOrder.php">Manual Order</a>
-    
-    <a href="#">Checks</a>
-    <a href="Categories.php">Categories</a>
-
-    <form method="POST" action="../../controllers/logout.php">
-        <button type="submit" class="btn btn-logout w-100 mt-3">Logout</button>
-    </form>
+<?php include "navbar.php"; ?>
 </div>
 <div class="main-content">
 

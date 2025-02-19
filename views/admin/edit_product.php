@@ -74,7 +74,7 @@ $errors = isset($_GET['errors']) ? json_decode(urldecode($_GET['errors']), true)
     </style>
 </head>
 <body>
-
+<?php include "navbar.php"; ?>
 <div class="container">
     <h2 class="text-center">Edit Product</h2>
 

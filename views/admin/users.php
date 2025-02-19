@@ -41,25 +41,8 @@ $users = $UsersModal->getAllUsers();
     
 </head>
   <body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <div class="admin-info">
-          <!-- Admin Info (profile image) -->
-          <img src="../../uploads/<?= htmlspecialchars($admin['profile_image']); ?>" alt="Admin Image">
-          <p><?= htmlspecialchars($admin['name']); ?></p>
-      </div>
-      <a href="admin_dashboard.php">Home</a>
-      <a href="products.php">Product</a>
-      <a href="users.php">Users</a>
-      <a href="ManualOrder.php">Manual Order</a>
-      
-      <a href="#">Checks</a>
-      <a href="Categories.php">Categories</a>
-
-      <form method="POST" action="../../controllers/logout.php">
-          <button type="submit" class="btn btn-logout w-100 mt-3">Logout</button>
-      </form>
-    </div>
+   
+    <?php include "navbar.php"; ?>
     <div class="main-content">
       <div class="container-xl" style="">
         <div class="table-responsive ">
@@ -71,7 +54,7 @@ $users = $UsersModal->getAllUsers();
                 </div>
                 
                 <a class="btn btn-info col-sm-2 px-2 " type="button" 
-                data-target="#addcat" href="admin_dashboard.php"> + Add New User</a>
+                data-target="#addcat" href="adduserform.php"> + Add New User</a>
 
               </div>
             </div>

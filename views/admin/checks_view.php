@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
-
+<?php include "navbar.php"; ?>
 <div class="container mt-5">
     <h2 class="mb-4 text-center">📜 Order History</h2>
 

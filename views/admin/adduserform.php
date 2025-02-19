@@ -188,12 +188,12 @@ function toggleDropdown() {
         <img src="../../uploads/<?= htmlspecialchars($admin['profile_image']); ?>" alt="Admin Image">
         <p><?= htmlspecialchars($admin['name']); ?></p>
     </div>
-    <a href="admin_dashboard.php">Home</a>
+    <a href="ManualOrder.php">Home</a>
     <a href="products.php">Product</a>
     <a href="users.php">Users</a>
-    <a href="#">Manual Order</a>
-    
-    <a href="#">Checks</a>
+    <a href="ManualOrder.php">Manual Order</a>
+    <a href="AllOrders.php">All Orders</a>
+    <a href="checks_view.php">Checks</a>
     <a href="Categories.php">Categories</a>
 
     <form method="POST" action="../../controllers/logout.php">

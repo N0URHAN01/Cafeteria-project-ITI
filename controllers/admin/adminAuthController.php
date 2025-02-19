@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION["is_admin"] = true;
             $_SESSION["admin_id"] = $admin_id;
             
-            header("Location: ../../views/admin/admin_dashboard.php");
+            header("Location: ../../views/admin/ManualOrder.php");
             exit;
         } else {
             

@@ -104,6 +104,8 @@ $orders = $orderModel->get_all_orders();
     </style>
 </head>
 <body>
+
+<?php include "navbar.php"; ?>
     <div class="container mt-5">
         <h2 class="mb-4">Admin Order Management</h2>
         

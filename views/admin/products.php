@@ -52,27 +52,7 @@ $error_message = $_GET['error'] ?? null;
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg">
-    <a class="navbar-brand" href="#"><img src="../../static_images/logo.png" style="width:50px; height:50px;"></a>
-    <div class="collapse navbar-collapse">
-        <ul class="navbar-nav w-100">
-            <li class="nav-item"><a class="nav-link" href="admin_dashboard.php">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="products.php">Products</a></li>
-            <li class="nav-item"><a class="nav-link" href="users.php">Users</a></li>
-            <li class="nav-item"><a class="nav-link" href="Categories.php">Categories</a></li>
-            <li class="ml-auto">
-                <div class="admin-info" onclick="toggleDropdown()">
-                    <img src="../../uploads/<?= htmlspecialchars($admin['profile_image']); ?>" class="profile-img" />
-                    <span><?= htmlspecialchars($admin['name']); ?></span>
-                </div>
-                <ul class="dropdown-menu" id="dropdownMenu">
-                    <li><a href="../../controllers/logout.php">Logout</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-</nav>
-
+<?php include "navbar.php"; ?>
 <!-- Main Content -->
 <div class="container-xl">
     <div class="table-responsive">

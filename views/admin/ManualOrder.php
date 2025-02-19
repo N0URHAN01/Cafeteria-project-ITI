@@ -33,6 +33,8 @@ $availableProducts = array_filter($products, function($product) {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+<?php include "navbar.php"; ?>
+
     <div class="container mt-5">
         <h2 class="mb-4">Manual Order</h2>
         <?php if (isset($_GET['errors']) && is_array($_GET['errors'])): ?>
