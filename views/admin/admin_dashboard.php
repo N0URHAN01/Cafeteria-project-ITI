@@ -38,40 +38,8 @@ $all_rooms = $room->get_all_rooms();
             background: #f5f5f0;
         }
 
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            width: 250px;
-            background-color: #7E5A3C; 
-            color: white;
-            padding-top: 30px;
-        }
-        .sidebar .admin-info {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .sidebar .admin-info img {
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-        }
-        .sidebar .admin-info p {
-            margin-top: 10px;
-        }
-        .sidebar a {
-            color: white;
-            text-decoration: none;
-            padding: 10px;
-            display: block;
-            font-size: 16px;
-        }
-        .sidebar a:hover {
-            background-color: #D76F32; 
-        }
+        
         .main-content {
-            margin-left: 250px;
             padding: 20px;
             height: 100%;
         }
@@ -172,36 +140,13 @@ $all_rooms = $room->get_all_rooms();
            }
         }
     </style>
-        <script>
-
-function toggleDropdown() {
-    var dropdown = document.getElementById("dropdownMenu");
-    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-}
-
-    </script>
 </head>
+
+    
 <body>
 
-<!-- Sidebar -->
-<div class="sidebar">
-    <div class="admin-info">
-        <!-- Admin Info (profile image) -->
-        <img src="../../uploads/<?= htmlspecialchars($admin['profile_image']); ?>" alt="Admin Image">
-        <p><?= htmlspecialchars($admin['name']); ?></p>
-    </div>
-    <a href="admin_dashboard.php">Home</a>
-    <a href="products.php">Product</a>
-    <a href="users.php">Users</a>
-    <a href="ManualOrder.php">Manual Order</a>
-    
-    <a href="#">Checks</a>
-    <a href="Categories.php">Categories</a>
 
-    <form method="POST" action="../../controllers/logout.php">
-        <button type="submit" class="btn btn-logout w-100 mt-3">Logout</button>
-    </form>
-</div>
+<?php include "navbar.php"; ?>
 
 <!-- Main Content -->
 <div class="main-content">

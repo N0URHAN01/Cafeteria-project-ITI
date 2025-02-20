@@ -7,7 +7,21 @@ class Users {
     public function __construct($db) {
         $this->conn = $db;
     }
-
+    //check email exist for update
+    public function updated_user_email_exist($email, $current_user_id) {
+        try {
+            $query = "SELECT user_id FROM users WHERE email = :email AND user_id != :current_user_id LIMIT 1";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':current_user_id', $current_user_id, PDO::PARAM_INT);
+            $stmt->execute();
+    
+            return $stmt->rowCount() > 0; // true if email exists (excluding the current user)
+        } catch (PDOException $e) {
+            error_log("Database query error: " . $e->getMessage());
+            return false;
+        }
+    }
     // Get all users
     public function getAllUsers() {
         $query = "SELECT users.*, rooms.room_number FROM users 
