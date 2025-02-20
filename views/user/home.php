@@ -7,7 +7,7 @@ require_once __DIR__ . "/../../classes/product/product.php";
 session_start();
 requireAuthUser();
 
-// Initialize Database connection
+
 $database = new Database();
 $conn = $database->connect();
 
@@ -15,7 +15,6 @@ if (!$conn) {
     die("Database connection failed in home.php.");
 }
 
-// Check if $conn is a PDO instance
 if (!($conn instanceof PDO)) {
     die("Database connection object is invalid.");
 }
@@ -114,9 +113,9 @@ $(document).ready(function() {
             dataType: "json",
             success: function(response) {
                 if (response.status === "success") {
-                    $(".cart-badge").text(response.cart_count); // Update Cart Count
+                    $(".cart-badge").text(response.cart_count); 
                     alert(response.message);
-                    updateCartDropdown(response.cart_html); // Refresh Cart Dropdown
+                    updateCartDropdown(response.cart_html); 
                 }
             },
             error: function(xhr) {

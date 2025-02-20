@@ -7,12 +7,10 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>navbar</title>
+    <title>Navbar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/home.css">
-
-
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light">
@@ -33,8 +31,8 @@ session_start();
         <div class="navbar-nav-right d-flex align-items-center">
             <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle user-dropdown d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
-                    <img src="../../uploads/users/<?= $_SESSION['user_image']; ?>" alt="User">
-                    <span><?= htmlspecialchars($_SESSION['user_name']); ?></span>
+                    <img src="../../uploads/users/<?= $_SESSION['user_image'] ?? 'default.jpg'; ?>" alt="User">
+                    <span><?= htmlspecialchars($_SESSION['user_name'] ?? 'Guest'); ?></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="profile.php"><i class="fas fa-user"></i> Profile</a></li>
@@ -50,9 +48,7 @@ session_start();
             <div class="nav-item dropdown position-relative">
                 <a class="nav-link dropdown-toggle" href="#" id="cartDropdown" role="button" data-bs-toggle="dropdown">
                     <i class="fas fa-shopping-cart cart-icon"></i> Cart
-                    <span class="cart-badge"><?= $_SESSION['cart_count'] ?? 0; ?></span>
                 </a>
-
                 <div class="dropdown-menu dropdown-menu-end p-3" style="width: 300px;">
                     <?php if (!empty($_SESSION['cart'])): ?>
                         <ul class="list-unstyled">
@@ -60,13 +56,10 @@ session_start();
                                 <li class="d-flex align-items-center mb-2">
                                     <img src="../../uploads/products/<?= htmlspecialchars($item['image_url']); ?>" class="me-2" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
                                     <div>
-                                        <p class="m-0"><?= htmlspecialchars($item['name']); ?></p>
-                                        <p class="m-0">$<?= number_format($item['price'], 2); ?> x <?= $item['quantity']; ?> = $<?= number_format($item['price'] * $item['quantity'], 2); ?></p>
-                                        <button class="btn btn-sm btn-warning update-cart" data-product-id="<?= $id; ?>" data-action="decrease">-</button>
-<span class="mx-2 cart-item-quantity"><?= $item['quantity']; ?></span>
-<button class="btn btn-sm btn-success update-cart" data-product-id="<?= $id; ?>" data-action="increase">+</button>
-<button class="btn btn-sm btn-danger remove-from-cart" data-product-id="<?= $id; ?>">Remove</button>
-
+                                        <p class="m-0"> <?= htmlspecialchars($item['name']); ?> </p>
+                                        <p class="m-0"> $<?= number_format($item['price'], 2); ?> x <?= $item['quantity']; ?> = $<?= number_format($item['price'] * $item['quantity'], 2); ?> </p>
+                                        <span class="mx-2 cart-item-quantity">Quantity: <?= $item['quantity']; ?></span>
+                                        
                                     </div>
                                 </li>
                             <?php endforeach; ?>
@@ -87,7 +80,3 @@ session_start();
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>
-
-
-
- 
