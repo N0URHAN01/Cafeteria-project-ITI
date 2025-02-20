@@ -54,8 +54,8 @@ if (!$user) {
     <style>
 
       .btn-add-user {
-        background-color: #7e5a3c;
-        color: white;
+        background-color: #7e5a3c !important;
+        color: white!important;
         border-radius: 25px;
         padding: 0.6rem 1.2rem;
         font-size: 1rem;
@@ -63,7 +63,7 @@ if (!$user) {
         transition: background-color 0.3s ease;
       }
       .btn-add-user:hover {
-        background-color: #d76f32;
+        background-color: #d76f32!important;
       }
         .main-content {
             /* margin-left: 250px; */
@@ -233,7 +233,7 @@ if (!$user) {
                                 </div>
 
                                 <div class="d-flex justify-content-center">
-                                    <button type="submit" name="update_user" class="btn btn-add-user px-4">Update User</button>
+                                    <button type="submit" name="update_user" class="btn btn-add-user px-4 ">Update User</button>
                                 </div>
                             </form>
 
