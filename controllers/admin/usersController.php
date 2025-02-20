@@ -20,7 +20,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["update_user"])) {
     $email = $_POST["email"];
     $ext = $_POST["ext"];
     $room_id = $_POST["room_id"];
-    $password = !empty($_POST["password"]) ?  hash_password($_POST["password"],$email) : null;
+    $old_password = $_POST["old_password"];
+    $password = !empty($_POST["password"]) ?  $_POST["password"]: null;
+    if($old_password !==  $password){
+        $password =  !empty($_POST["password"]) ?hash_password($_POST["password"],$email):null;
+
+    }
     // Handle profile image upload
     if (!empty($_FILES["profile_image"]["name"])) {
         $targetDir = "../../uploads/users/";

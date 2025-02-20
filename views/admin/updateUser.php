@@ -187,9 +187,15 @@ if (!$user) {
                                 </div>
 
                                 <!-- Password (optional update) -->
-                                <div class="input-container">
+                                <div class="input-container position-relative">
                                     <label for="password" class="form-label">New Password</label>
-                                    <input type="password" name="password" class="form-control form-control-sm" id="password" placeholder=" " required>
+                                    <input type="password" name="password" class="form-control form-control-sm" id="password" placeholder=" " required  value="<?= htmlspecialchars($user['password']); ?>">
+                                    
+                                    <!-- hiddenn input  to show the password -->
+                                    <input type="password" id="old_password" name="old_password" class="position-absolute" style="left: 80px; top: 13px; display: none;" hidden
+                                            value="<?= htmlspecialchars($user['password']); ?>"
+                                        />
+                                    
                                     <i class="fas fa-lock"></i>
                                 </div>
 
@@ -247,6 +253,5 @@ if (!$user) {
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
