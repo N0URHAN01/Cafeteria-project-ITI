@@ -1,6 +1,7 @@
 <?php
 $errors = isset($_GET['errors']) ? json_decode(urldecode($_GET['errors']), true) : [];
 $old_data = isset($_GET['old_data']) ? json_decode(urldecode($_GET['old_data']), true) : [];
+
 ?>
 
 <!DOCTYPE html>
@@ -109,7 +110,7 @@ $old_data = isset($_GET['old_data']) ? json_decode(urldecode($_GET['old_data']),
             </div>
         <?php endif; ?>
         
-        <form method="POST" action="/controllers/admin/adminAuthController.php">
+        <form method="POST" action="../../controllers/admin/adminAuthController.php">
             <div class="input-group">
                 <label>Email Address:</label>
                 <input type="email" name="email" placeholder="Enter email" 

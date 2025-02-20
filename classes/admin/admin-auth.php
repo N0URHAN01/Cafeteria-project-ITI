@@ -37,6 +37,32 @@ class AdminAuth{
         }
     }
 
+    // create new admin 
+    public function create_admin($name,$password,$email,$profile_image){
+        try{
+            
+            $hashed_password = hash_password($password,$email);
+
+            $insert_user = $this->db->connect()->prepare(
+                "INSERT INTO admins (name, email, password, profile_image) 
+                 VALUES (:name, :email, :password,:profile_image)"
+            );
+
+            $insert_user->bindParam(':name', $name);
+            $insert_user->bindParam(':email', $email);
+            $insert_user->bindParam(':password', $hashed_password);
+    
+            $insert_user->bindParam(':profile_image', $profile_image);
+    
+            $insert_user->execute();
+
+            return "user created";
+        }catch(PDOException $e){
+            error_log("Database connection error: " . $e->getMessage());
+            return false;
+        }
+    }
+
 // auth admin 
 
         public function auth_admin($email,$password):string | false{
@@ -66,8 +92,10 @@ class AdminAuth{
         }
 
 }
-
-$user = new AdminAuth();
+//for test
+ $user = new AdminAuth();
 $admin = new AdminAuth();
 //var_dump($admin->auth_admin("init0x1@email.com","init0x10Password"));
 //var_dump($user->create_user("init0x1","init0x1Password","init0x1@email.com",1,"ext","null.png"));
+$admin ->create_admin("admin","1234","admin@gmail.com","null.png");
+$admin->auth_admin("admin@gmail.com","1234");
