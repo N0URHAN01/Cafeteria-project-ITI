@@ -13,6 +13,20 @@
         return false;
 }
 
-if (!init()) {
+if (init()) {
+    $request_uri = $_SERVER['REQUEST_URI'];
+    switch ($request_uri) {
+        case '/':
+            header('Location: /views/user/home.php');
+            break;
+        case '/admin':
+            header('location: /views/admin/ManualOrder.php');
+            break;
+        default:
+            header('Location: /views/user/home.php');
+            break;
+    }
+
+}else{
     die(" some services dose not work ");
 }
